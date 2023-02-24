@@ -86,9 +86,12 @@ public class Player : MonoBehaviour
         selectTool = null;
 
         // 가지고 있던 도구 삭제
-        for(int i = 0; i < toolListObj.transform.childCount; ++i)
+        int hasToolsCount = toolListObj.transform.childCount;
+        for (int i = 0; i < hasToolsCount; ++i)
         {
-            Destroy(toolListObj.transform.GetChild(i).gameObject);
+            //Destroy(toolListObj.transform.GetChild(i).gameObject);
+            GameObject returnTool = toolListObj.transform.GetChild(0).gameObject;
+            GameManager.instance.toolManager.ReturnTool(returnTool);
         }
 
         for (int i = 0; i < showSelectTools.transform.childCount; ++i)
@@ -109,16 +112,17 @@ public class Player : MonoBehaviour
     {
         GameObject toolObj = toolPref == null ? GameManager.instance.toolManager.GiveTool(tool) : toolPref;
         // 어떤 도구인지 정보를 전달받은 후 해당 도구를 인스턴스화 하는 과정
-        GameObject toolObjInstance = Instantiate(toolObj, toolListObj.transform);
+        //GameObject toolObjInstance = Instantiate(toolObj, toolListObj.transform);
+        toolObj.transform.SetParent(toolListObj.transform);
 
         // 해당 도구를 플레이어가 가지고 있다는 것을 알려줌
-        toolObjInstance.GetComponent<Tool>().HasPlayer();
+        toolObj.GetComponent<Tool>().HasPlayer();
         
         // 강화할 때 어떤 도구를 가지고 있는지 알려줌
-        GameManager.instance.reinforceManager.AddTool(toolObjInstance);
+        GameManager.instance.reinforceManager.AddTool(toolObj);
 
         // 플레이어가 가지고 있는 도구를 저장한다.
-        hasTools.Add(toolObjInstance);
+        hasTools.Add(toolObj);
         hasToolTypes.Add(tool);
 
         // 플레이어가 선택할 수 있도록 버튼을 추가한다.
@@ -128,23 +132,35 @@ public class Player : MonoBehaviour
 
         // 버튼 이미지 수정
         toolButton.transform.GetChild(0).GetComponent<Image>().sprite =
-            toolObjInstance.GetComponent<SpriteRenderer>().sprite;
+            toolObj.GetComponent<Tool>().ToolImage;
 
         // 버튼 클릭 시 해당 도구로 변경
         toolButton.GetComponent<Button>().onClick.AddListener(() =>
         {
-            SelectTool(tool);
+            if (GameManager.instance.GameState == GAME_STATE.RUNNING) { SelectTool(tool); }
         });
 
-        return toolObjInstance;
+        return toolObj;
     }
 
     void ChangeTool()
     {
         hitButton.GetComponent<EventTrigger>().triggers.Clear();
 
-        buttonDown.callback.AddListener((data) => selectTool.GetComponent<Tool>().HitButtonDown());
-        buttonUp.callback.AddListener((data) => selectTool.GetComponent<Tool>().HitButtonUp());
+        buttonDown.callback.AddListener((data) =>
+        {
+            if (GameManager.instance.GameState == GAME_STATE.RUNNING)
+            {
+                selectTool.GetComponent<Tool>().HitButtonDown();
+            }
+        });
+        buttonUp.callback.AddListener((data) =>
+        {
+            if (GameManager.instance.GameState == GAME_STATE.RUNNING)
+            {
+                selectTool.GetComponent<Tool>().HitButtonUp();
+            }
+        });
 
         hitButton.GetComponent<EventTrigger>().triggers.Add(buttonDown);
         hitButton.GetComponent<EventTrigger>().triggers.Add(buttonUp);
@@ -251,7 +267,8 @@ public class Player : MonoBehaviour
         hasTools.RemoveAt(index);
 
         // 현재 가지고 있는 도구의 오브젝트 삭제
-        Destroy(toolListObj.transform.GetChild(index).gameObject);
+        //Destroy(toolListObj.transform.GetChild(index).gameObject);
+        GameManager.instance.toolManager.ReturnTool(toolListObj.transform.GetChild(index).gameObject);
         Destroy(showSelectTools.transform.GetChild(index).gameObject);
 
         // 상점과 강화 매니저에게 도구를 사용할 수 없다는 것을 알림

@@ -142,8 +142,13 @@ MonoBehaviour:
   toolRadius: 0
   speed: 10
   toolSpeed: 0
+  damage: 10
+  toolDamage: 0
+  maxDamageLevel: 5
+  toolInfo: "\uD3C9\uBC94\uD55C \uB9E8\uC190\uC774\uB2E4.\n\uC81C\uC77C \uC57D\uD558\uAE34
+    \uD558\uC9C0\uB9CC \uB3C4\uAD6C\uAC00 \uC5C6\uC73C\uBA74 \uB9E8\uC190\uC774\uB77C\uB3C4
+    \uC368\uC57C\uD55C\uB2E4.."
   tool: 0
   hasPlayer: 0
   toolName: "\uB9E8\uC190"
-  damage: 10
   toolImage: {fileID: 21300000, guid: b2bdd01e53b45e546b7b53febe5ad6ac, type: 3}

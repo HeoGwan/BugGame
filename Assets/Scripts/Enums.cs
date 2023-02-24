@@ -7,8 +7,11 @@ namespace CESCO
     public enum OBJ_TYPE
     {
         PLAYER_HAS,
-        GAUGE_IMAGE,
-        GAUGE_BG_IMAGE,
+        HP_GAUGE_IMAGE,
+        HP_GAUGE_BG_IMAGE,
+        TOOL_GAUGE_IMAGE,
+        TOOL_GAUGE_BG_IMAGE,
+        SCORE,
     }
 
     public enum HIT_OBJ_TYPE
@@ -48,6 +51,17 @@ namespace CESCO
     {
         BGM,
         EFFECT,
+        UI_EFFECT,
+        BUG_EFFECT,
+    }
+
+    public enum UI_SOUND
+    {
+        START,
+        PAUSE,
+        APPLY,
+        CANCEL,
+        BUY,
     }
 
     public enum BUG_TYPE
@@ -84,5 +98,14 @@ namespace CESCO
         SMALL,          // 작음
         MEDIUM,         // 보통
         LARGE,          //  큼
+    }
+
+    public enum TOOL_DAMAGE
+    {
+        VERY_WEAK,
+        WEAK,
+        NORMAL,
+        STRONG,
+        VERY_STRONG,
     }
 }

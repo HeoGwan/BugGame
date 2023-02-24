@@ -11,6 +11,8 @@ public class SettingManager : MonoBehaviour
     public Image BGMHandle;
     public Slider Effect;
     public Image EffectHandle;
+    public Slider BugEffect;
+    public Image BugEffectHandle;
 
     [SerializeField] private List<Sprite> speakerSprites;
     private float soundStandard = 0.25f;
@@ -21,6 +23,8 @@ public class SettingManager : MonoBehaviour
         OnBGMSliderDown();
         Effect.value = GameManager.instance.soundManager.Effect.volume;
         OnEffectSliderDown();
+        BugEffect.value = GameManager.instance.prefabManager.GetBugSound();
+        OnBugEffectSliderDown();
     }
 
     public void Enable()
@@ -49,6 +53,7 @@ public class SettingManager : MonoBehaviour
     {
         GameManager.instance.soundManager.ChangeVolume(GameSound.BGM, BGM.value);
         GameManager.instance.soundManager.ChangeVolume(GameSound.EFFECT, Effect.value);
+        GameManager.instance.soundManager.ChangeVolume(GameSound.BUG_EFFECT, BugEffect.value);
 
         ShowSetting();
     }
@@ -83,5 +88,21 @@ public class SettingManager : MonoBehaviour
         }
 
         EffectHandle.sprite = speakerSprites[spriteIndex];
+    }
+
+    public void OnBugEffectSliderDown()
+    {
+        int spriteIndex;
+        if (BugEffect.value == 0)
+        {
+            spriteIndex = 0;
+        }
+        else
+        {
+            spriteIndex = (int)(BugEffect.value / soundStandard) + 1;
+            spriteIndex = spriteIndex > 4 ? 4 : spriteIndex;
+        }
+
+        BugEffectHandle.sprite = speakerSprites[spriteIndex];
     }
 }

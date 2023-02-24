@@ -33,8 +33,13 @@ public class ReinforceManager : MonoBehaviour
     public void ReinforceToolRate()
     {
         // 연사 속도 강화
-        if (price.RatePrice == -1 || GameManager.instance.CurrentPlayer.Money < price.RatePrice) return;
+        if (price.RatePrice == -1 || GameManager.instance.CurrentPlayer.Money < price.RatePrice)
+        {
+            GameManager.instance.soundManager.UIEffectPlay(UI_SOUND.CANCEL);
+            return;
+        }
 
+        GameManager.instance.soundManager.UIEffectPlay(UI_SOUND.APPLY);
         GameManager.instance.CurrentPlayer.Money -= price.RatePrice;
         GameManager.instance.toolManager.ReinforceRate(currentSelectTool);
         reinforce.ShowMoney();
@@ -44,8 +49,13 @@ public class ReinforceManager : MonoBehaviour
     public void ReinforceToolRadius()
     {
         // 범위 강화
-        if (price.RadiusPrice == -1 || GameManager.instance.CurrentPlayer.Money < price.RadiusPrice) return;
+        if (price.RadiusPrice == -1 || GameManager.instance.CurrentPlayer.Money < price.RadiusPrice)
+        {
+            GameManager.instance.soundManager.UIEffectPlay(UI_SOUND.CANCEL);
+            return;
+        }
 
+        GameManager.instance.soundManager.UIEffectPlay(UI_SOUND.APPLY);
         GameManager.instance.CurrentPlayer.Money -= price.RadiusPrice;
         GameManager.instance.toolManager.ReinforceRadius(currentSelectTool);
         reinforce.ShowMoney();
@@ -55,13 +65,35 @@ public class ReinforceManager : MonoBehaviour
     public void ReinforceToolSpeed()
     {
         // 이동 속도 강화
-        if (price.SpeedPrice == -1 || GameManager.instance.CurrentPlayer.Money < price.SpeedPrice) return;
+        if (price.SpeedPrice == -1 || GameManager.instance.CurrentPlayer.Money < price.SpeedPrice)
+        {
+            GameManager.instance.soundManager.UIEffectPlay(UI_SOUND.CANCEL);
+            return;
+        }
 
+        GameManager.instance.soundManager.UIEffectPlay(UI_SOUND.APPLY);
         GameManager.instance.CurrentPlayer.Money -= price.SpeedPrice;
         GameManager.instance.toolManager.ReinforceSpeed(currentSelectTool);
         reinforce.ShowMoney();
         price = reinforce.ShowToolInfo();
     }    
+    
+    public void ReinforceToolDamage()
+    {
+        // 이동 속도 강화
+        if (price.DamagePrice == -1 || GameManager.instance.CurrentPlayer.Money < price.DamagePrice)
+        {
+            GameManager.instance.soundManager.UIEffectPlay(UI_SOUND.CANCEL);
+            return;
+        }
+
+        GameManager.instance.soundManager.UIEffectPlay(UI_SOUND.APPLY);
+        GameManager.instance.CurrentPlayer.Money -= price.DamagePrice;
+        GameManager.instance.toolManager.ReinforceDamage(currentSelectTool);
+        reinforce.ShowMoney();
+        price = reinforce.ShowToolInfo();
+    }    
+
 
     public void AddTool(GameObject tool)
     {

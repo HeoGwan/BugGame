@@ -14,8 +14,10 @@ using UnityEngine;
 public class Trap : Tool
 {
     [SerializeField] private float stopDuration;
-    [SerializeField] private int maxCount;
     [SerializeField] private Sprite hitObjImage;
+
+    [Header("▼ 사용량 정보")]
+    [SerializeField] private int maxCount;
     [SerializeField] private GameObject showUseCanvas;
     [SerializeField] private TextMeshProUGUI showUseText;
     [SerializeField] private TextMeshProUGUI showMaxUseText;
@@ -31,6 +33,8 @@ public class Trap : Tool
         // 남은 사용량 알려주는 텍스트 초기화
         showUseCanvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
         showUseCanvas.GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        showMaxUseText.text = "/ " + maxCount;
+        showUseText.text = (maxCount - count + 1).ToString();
 
         float[] radiusValue = { 1.2f, 1.6f, 2f };
         SetRadiusValue(radiusValue);

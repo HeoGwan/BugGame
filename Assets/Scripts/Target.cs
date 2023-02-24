@@ -8,6 +8,7 @@ public class Target : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI showHP;
     [SerializeField] private float hp;
+    [SerializeField] private Image hpGauge;
 
     private float healthPoint;
 
@@ -18,7 +19,10 @@ public class Target : MonoBehaviour
 
     public void Init() { healthPoint = hp; }
 
-    void ShowHP() { showHP.text = "HP: " + healthPoint; }
+    void ShowHP() {
+        showHP.text = "HP: " + healthPoint;
+        hpGauge.fillAmount = healthPoint / hp;
+    }
 
 
     private void OnDisable() { Init(); }

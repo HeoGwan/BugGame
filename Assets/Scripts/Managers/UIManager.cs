@@ -17,6 +17,9 @@ public class UIManager : MonoBehaviour
     public GameObject gameOver;
     public GameObject gameRule;
 
+    [Header("▼ Global Button")]
+    public GameObject playerButton;
+
     private List<GameObject> GameUI;
     private Stack<GameObject> GameUIStack;
     [SerializeField] private GameObject GamePauseButton;
@@ -52,6 +55,9 @@ public class UIManager : MonoBehaviour
         GameUIStack.Push(GameUI[(int)SCREEN.START]);
         GameUIStack.Peek().SetActive(true);
         GamePauseButton.SetActive(false);
+
+        // 플레이어 관련 버튼 비활성화
+        playerButton.SetActive(false);
     }
 
     public void ActiveUI(SCREEN screen)
@@ -85,5 +91,10 @@ public class UIManager : MonoBehaviour
 
         // 화면, UI 초기화
         Init();
+    }
+
+    public void ActiveGlobalUI()
+    {
+        if (!playerButton.activeSelf) playerButton.SetActive(true);
     }
 }

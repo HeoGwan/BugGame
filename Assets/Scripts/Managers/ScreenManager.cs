@@ -5,9 +5,9 @@ using CESCO;
 
 public class ScreenManager : MonoBehaviour
 {
-    private Stack<CESCO.SCREEN> ScreenStack;
+    private Stack<SCREEN> ScreenStack;
 
-    public CESCO.SCREEN CurrentScreen() => ScreenStack.Peek();
+    public SCREEN CurrentScreen() => ScreenStack.Peek();
 
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class ScreenManager : MonoBehaviour
         else
         {
             // BGM 출력
-            GameManager.instance.soundManager.BGMStop();
+            //GameManager.instance.soundManager.BGMStop();
         }
     }
 
@@ -46,7 +46,7 @@ public class ScreenManager : MonoBehaviour
         else
         {
             // BGM 출력
-            GameManager.instance.soundManager.BGMStop();
+            //GameManager.instance.soundManager.BGMStop();
         }
     }
 
@@ -57,7 +57,18 @@ public class ScreenManager : MonoBehaviour
         // UI 출력
         GameManager.instance.uiManager.ActiveUI(screen);
         GameManager.instance.backgroundManager.ChangeBackground();
-        BGM(ScreenStack.Peek());
+        //BGM(ScreenStack.Peek());
+        
+        if (screen == SCREEN.INGAME)
+        {
+            // BGM 출력
+            GameManager.instance.soundManager.RandomBGMPlay();
+        }
+
+        if (ScreenStack.Contains(SCREEN.INGAME))
+        {
+            GameManager.instance.uiManager.ActiveGlobalUI();
+        }
     }
 
     public void PrevScreen()
@@ -66,6 +77,8 @@ public class ScreenManager : MonoBehaviour
         // UI 끄기
         GameManager.instance.uiManager.InActiveUI();
         GameManager.instance.backgroundManager.ChangeBackground();
+
+        if (GameManager.instance.GameState == GAME_STATE.PAUSE) { return; }
         BGM(ScreenStack.Peek());
     }
 

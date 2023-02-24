@@ -59,7 +59,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 88
   m_TargetDisplay: 0
 --- !u!114 &858879716680999046
 MonoBehaviour:
@@ -73,12 +73,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -135,7 +135,7 @@ Transform:
   m_Children:
   - {fileID: 8945620108794092979}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20}
 --- !u!212 &5168429961656261451
 SpriteRenderer:
@@ -244,10 +244,14 @@ MonoBehaviour:
   toolRadius: 1
   speed: 10
   toolSpeed: 3
+  damage: 5
+  toolDamage: 0
+  maxDamageLevel: 5
+  toolInfo: "\uBC84\uD2BC\uC744 \uB204\uB974\uACE0 \uC788\uC73C\uBA74 \uC804\uAE30\uAC00
+    \uB098\uC640 \uBC8C\uB808\uB97C \uC9C0\uC838\uBC84\uB9B0\uB2E4."
   tool: 4
   hasPlayer: 0
   toolName: "\uC804\uAE30\uD30C\uB9AC\uCC44"
-  damage: 5
   toolImage: {fileID: 21300000, guid: 8759a2c394057bc449fc18e9b66d0f97, type: 3}
   maxAttackTime: 1
   attackDuration: 0.3

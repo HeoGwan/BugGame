@@ -34,6 +34,7 @@ public class Reinforce : MonoBehaviour
         showTool.GetComponent<Button>().onClick.AddListener(() =>
         {
             toolDetail.GetComponent<ShowToolDetail>().SelectTool(tool);
+            GameManager.instance.soundManager.UIEffectPlay(1);
         });
 
         hasPlayerTools.Add(tool);

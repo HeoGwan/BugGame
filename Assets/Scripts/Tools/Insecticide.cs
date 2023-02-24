@@ -2,6 +2,7 @@ using CESCO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -21,9 +22,25 @@ public class Insecticide : Tool
     [SerializeField] private float attackDuration;
     [SerializeField] private float attackDelay;
 
+    [Header("▼ 사용량 정보")]
+    [SerializeField] private int maxCount;
+    [SerializeField] private GameObject showUseCanvas;
+    [SerializeField] private TextMeshProUGUI showUseText;
+    [SerializeField] private TextMeshProUGUI showMaxUseText;
+    [SerializeField] private float xOffset;
+    [SerializeField] private float yOffset;
+
+    private int count = 1;
+
     private new void Awake()
     {
         base.Awake();
+
+        // 남은 사용량 알려주는 텍스트 초기화
+        showUseCanvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
+        showUseCanvas.GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        showMaxUseText.text = "/ " + maxCount;
+        showUseText.text = (maxCount - count + 1).ToString();
 
         float[] radiusValue = { 1.4f, 1.8f, 2.2f };
         SetRadiusValue(radiusValue);
@@ -32,6 +49,14 @@ public class Insecticide : Tool
     private void Start()
     {
         GetComponent<SpriteRenderer>().sprite = ShowHitObjImage;
+    }
+
+    public override void Move(Vector3 movePosition)
+    {
+        base.Move(movePosition);
+
+        showUseText.transform.position = new Vector2(transform.position.x - xOffset, transform.position.y + yOffset);
+        showMaxUseText.transform.position = new Vector2(transform.position.x + xOffset, transform.position.y + yOffset);
     }
 
     public override void Hit()
@@ -63,6 +88,23 @@ public class Insecticide : Tool
         GameManager.instance.CurrentPlayer.CurrentHitPos.GetComponent<ShowHitPos>().PlayHitAnimation(tool, hitDelay);
 
         // 때리는 소리 재생
-        //GameManager.instance.soundManager.EffectPlay(tool);
+        GameManager.instance.soundManager.EffectPlay(tool);
+
+        // 플레이어에게 더이상 사용할 수 없음을 알려줌
+        if (count >= maxCount)
+        {
+            StartCoroutine(CantUse());
+            count = 1;
+        }
+        else
+        {
+            showUseText.text = (maxCount - count).ToString();
+            ++count;
+        }
+    }
+    IEnumerator CantUse()
+    {
+        yield return new WaitForSeconds(0.2f);
+        GameManager.instance.CurrentPlayer.CantUse(gameObject);
     }
 }

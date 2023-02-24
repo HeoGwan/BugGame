@@ -12,6 +12,7 @@ public class Bug : MonoBehaviour
     [SerializeField] private float maxSpeed;
     [SerializeField] private float backSpeed = 1.5f;
     [SerializeField] private float size = 1f;
+    [SerializeField] private float sizeDifference;
     [SerializeField] protected float cycle;
     [SerializeField] protected float height;
     [SerializeField] private BUG_TYPE bugType;
@@ -20,6 +21,8 @@ public class Bug : MonoBehaviour
     [SerializeField] private float[] hp = { 10, 20, 30, 40, 50 };
     [SerializeField] private float ouchDelay;
     [SerializeField] private GameObject hpCanvas;
+    [SerializeField] private AudioClip moveAudio;
+    [SerializeField] private AudioClip[] deathAudio;
 
     public GameObject HpCanvas { get { return hpCanvas; } }
 
@@ -28,6 +31,7 @@ public class Bug : MonoBehaviour
     protected SpriteRenderer sprite;
     GameObject hpImage;
     GameObject hpBackgroundImage;
+    AudioSource audioSource;
 
     ParticleSystem ps;
     protected Vector3 direction;
@@ -39,6 +43,7 @@ public class Bug : MonoBehaviour
 
     private float healthPoint;
     public float HP { get { return healthPoint; } }
+    private int hpIndex = 0;
 
     public BUG_TYPE BugType
     {
@@ -70,12 +75,17 @@ public class Bug : MonoBehaviour
     {
         // 벌레 소환 시 설정하는 부분
         transform.position = position;
-        transform.localScale = new Vector2(this.size, this.size);
+
+        float bugSize = Random.Range(size - sizeDifference, size + sizeDifference);
+
+        transform.localScale = new Vector2(bugSize, bugSize);
 
         direction = transform.position - GameManager.instance.CurrentTarget.transform.position;
         dirVec = direction.normalized;
 
-        healthPoint = hp[GameManager.instance.Level - 1];
+        hpIndex = GameManager.instance.Level / GameManager.instance.LevelStep < hp.Length ?
+            GameManager.instance.Level / GameManager.instance.LevelStep : hp.Length - 1;
+        healthPoint = hp[hpIndex];
 
         return gameObject;
     }
@@ -89,6 +99,8 @@ public class Bug : MonoBehaviour
         angle = 0.0f;
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+        AudioSetting(false);
         prevSpeed = speed = Random.Range(minSpeed, maxSpeed);
     }
 
@@ -141,7 +153,16 @@ public class Bug : MonoBehaviour
         isMoving = true;
         anim.SetBool("Death", false);
         prevSpeed = speed = Random.Range(minSpeed, maxSpeed);
+
+        AudioSetting(false);
+        audioSource.Play();
+
         if (hpImage != null) hpImage.GetComponent<Image>().fillAmount = 1;
+    }
+
+    private void OnDisable()
+    {
+        audioSource.Stop();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -165,7 +186,7 @@ public class Bug : MonoBehaviour
 
         ps.Play();
         healthPoint -= damage;
-        hpImage.GetComponent<Image>().fillAmount = healthPoint / hp[GameManager.instance.Level - 1];
+        hpImage.GetComponent<Image>().fillAmount = healthPoint / hp[hpIndex];
 
         if (healthPoint <= 0)
         {
@@ -174,6 +195,10 @@ public class Bug : MonoBehaviour
             GameManager.instance.scoreManager.PlusScore();
             GetComponent<BoxCollider2D>().enabled = false;
             anim.SetBool("Death", true);
+
+            AudioSetting(true);
+            audioSource.Play();
+
             StartCoroutine(Death());
         }
         else
@@ -194,6 +219,49 @@ public class Bug : MonoBehaviour
     {
         hpBackgroundImage = hpBGObj;
         hpImage = hpObj;
+    }
+
+    private void AudioSetting(bool isDeath)
+    {
+        // 사망할 경우 AudioSource의 루프를 끄고 사망 사운드 중 랜덤으로 하나를 재생한다.
+        if (isDeath)
+        {
+            int audioIndex = Random.Range(0, deathAudio.Length);
+            audioSource.loop = false;
+            audioSource.clip = deathAudio[audioIndex];
+        }
+        else
+        {
+            // 평소에는 audioSource의 루프를 켜고 일반 사운드를 재생한다.
+            audioSource.loop = true;
+            audioSource.clip = moveAudio;
+        }
+    }
+
+    public void AudioPause()
+    {
+        audioSource.Pause();
+    }
+
+    public void AudioPlay()
+    {
+        audioSource.Play();
+    }
+
+    public void SetAudioVolume(float volume)
+    {
+        if (bugType == BUG_TYPE.MOSQUITO || bugType == BUG_TYPE.FLY)
+        {
+            audioSource.volume = volume;
+        } else
+        {
+            audioSource.volume = volume * 2;
+        }
+    }
+
+    public float GetVolume()
+    {
+        return audioSource.volume;
     }
 
     IEnumerator Collision()

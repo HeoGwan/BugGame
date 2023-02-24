@@ -25,9 +25,12 @@ public class ShowToolsButton : MonoBehaviour
 
     public void ShowSelectTool()
     {
-        isOn = !isOn;
-        offImage.SetActive(!isOn);
-        onImage.SetActive(isOn);
-        selectToolObj.SetActive(isOn);
+        if (GameManager.instance.GameState == CESCO.GAME_STATE.RUNNING)
+        {
+            isOn = !isOn;
+            offImage.SetActive(!isOn);
+            onImage.SetActive(isOn);
+            selectToolObj.SetActive(isOn);
+        }
     }
 }

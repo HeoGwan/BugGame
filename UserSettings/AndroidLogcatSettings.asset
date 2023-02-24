@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R5CRC37C95Z",
         "name": "com.DefaultCompany.CESCO",
-        "processId": 31642,
+        "processId": 27951,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -78,6 +78,12 @@
             "deviceId": "R5CRC37C95Z",
             "name": "com.DefaultCompany.CESCO",
             "processId": 31642,
+            "exited": false
+        },
+        {
+            "deviceId": "R5CRC37C95Z",
+            "name": "com.DefaultCompany.CESCO",
+            "processId": 27951,
             "exited": false
         }
     ],

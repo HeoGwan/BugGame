@@ -32,12 +32,14 @@ public class ShopManager : MonoBehaviour
     {
         if (GameManager.instance.CurrentPlayer.Money < price)
         {
+            GameManager.instance.soundManager.UIEffectPlay(UI_SOUND.CANCEL);
             return false;
         }
 
         // 도구를 구매하면 toolManager를 통해 플레이어에게 도구를 전달해주고
         // 해당 도구를 구매했다는 정보를 shop에게 알려준 뒤
         // 다시 상점에 있는 도구를 보여주도록 함
+        GameManager.instance.soundManager.UIEffectPlay(UI_SOUND.BUY);
         GameManager.instance.CurrentPlayer.Money -= price;
         GameManager.instance.toolManager.GivePlayer(buyTool);
 

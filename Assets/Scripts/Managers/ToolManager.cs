@@ -8,37 +8,58 @@ public class ToolManager : MonoBehaviour
     public GameObject[] toolObjs;
 
     private List<GameObject> tools;
+    private List<TOOL> toolTypes;
 
     private void Awake()
     {
         tools = new List<GameObject>();
+        toolTypes = new List<TOOL>();
 
         foreach (GameObject toolObj in toolObjs)
         {
             GameObject tool = Instantiate(toolObj, transform);
             tool.SetActive(false);
-            tools.Insert((int)tool.GetComponent<Tool>().ToolType, tool);
+            //tools.Insert((int)tool.GetComponent<Tool>().ToolType, tool);
+            AddTool(tool);
         }
+    }
+
+    void AddTool(GameObject tool)
+    {
+        tools.Add(tool);
+        toolTypes.Add(tool.GetComponent<Tool>().ToolType);
+        tool.transform.SetParent(transform);
+    }
+
+    public void ReturnTool(GameObject tool)
+    {
+        //tools.Insert((int)tool.GetComponent<Tool>().ToolType, tool);
+        tool.SetActive(false);
+        AddTool(tool);
     }
 
     public GameObject GetTool(TOOL tool)
     {
-        return tools[(int)tool];
+        int index = toolTypes.IndexOf(tool);
+        return tools[index];
     }
 
     public Tool GetToolInfo(TOOL tool)
     {
-        return tools[(int)tool].GetComponent<Tool>();
+        int index = toolTypes.IndexOf(tool);
+        return tools[index].GetComponent<Tool>();
     }
 
     public GameObject GivePlayer(TOOL tool)
     {
-        return GameManager.instance.CurrentPlayer.GetTool(tool, tools[(int)tool]);
+        int index = toolTypes.IndexOf(tool);
+        return GameManager.instance.CurrentPlayer.GetTool(tool, tools[index]);
     }
 
     public GameObject GiveTool(TOOL tool)
     {
-        return tools[(int)tool];
+        int index = toolTypes.IndexOf(tool);
+        return tools[index];
     }
 
     public void ReinforceRate(GameObject tool)
@@ -63,5 +84,13 @@ public class ToolManager : MonoBehaviour
 
         tool.GetComponent<Tool>().ToolSpeed += 1;
         tool.GetComponent<Tool>().SetSpeed();
+    }
+
+    public void ReinforceDamage(GameObject tool)
+    {
+        if (tool.GetComponent<Tool>().ToolDamage == TOOL_DAMAGE.VERY_STRONG) return;
+
+        tool.GetComponent<Tool>().ToolDamage += 1;
+        tool.GetComponent<Tool>().SetDamage();
     }
 }

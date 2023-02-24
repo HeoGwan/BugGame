@@ -14,30 +14,46 @@ public class PrefabManager : MonoBehaviour
     [SerializeField] private GameObject hpImagePrefab;
     [SerializeField] private GameObject hpBackgroundImagePrefab;
 
+    [Header("▼ Tool Gauge")]
+    [SerializeField] private GameObject toolGaugeImagePrefab;
+    [SerializeField] private GameObject toolGaugeBackgroundImagePrefab;
+
+    [Header("▼ Score")]
+    [SerializeField] private GameObject scorePrefab;
+
     private List<GameObject> objs;
-    private List<GameObject>[] bugPools;
-    private List<GameObject>[] hitPools;
+    private List<GameObject>[] bugPool;
+    private List<GameObject>[] hitPool;
+    private List<GameObject> scorePool;
+
+    public List<GameObject>[] BugPool { get { return bugPool; } }
 
     private void Awake()
     {
         objs = new List<GameObject>();
         objs.Insert((int)OBJ_TYPE.PLAYER_HAS, playerHasTool);
-        objs.Insert((int)OBJ_TYPE.GAUGE_IMAGE, hpImagePrefab);
-        objs.Insert((int)OBJ_TYPE.GAUGE_BG_IMAGE, hpBackgroundImagePrefab);
+        objs.Insert((int)OBJ_TYPE.HP_GAUGE_IMAGE, hpImagePrefab);
+        objs.Insert((int)OBJ_TYPE.HP_GAUGE_BG_IMAGE, hpBackgroundImagePrefab);
+        objs.Insert((int)OBJ_TYPE.TOOL_GAUGE_IMAGE, toolGaugeImagePrefab);
+        objs.Insert((int)OBJ_TYPE.TOOL_GAUGE_BG_IMAGE, toolGaugeBackgroundImagePrefab);
+        objs.Insert((int)OBJ_TYPE.SCORE, scorePrefab);
 
-        bugPools = new List<GameObject>[bugPrefabs.Length];
-        for (int i = 0; i < bugPools.Length; ++i)
+        bugPool = new List<GameObject>[bugPrefabs.Length];
+        for (int i = 0; i < bugPool.Length; ++i)
         {
-            bugPools[i] = new List<GameObject>();
+            bugPool[i] = new List<GameObject>();
         }
-        InitializeBug(20);
+        InitializeBug(30);
 
-        hitPools = new List<GameObject>[hitPrefabs.Length];
-        for (int i = 0; i < hitPools.Length; ++i)
+        hitPool = new List<GameObject>[hitPrefabs.Length];
+        for (int i = 0; i < hitPool.Length; ++i)
         {
-            hitPools[i] = new List<GameObject>();
+            hitPool[i] = new List<GameObject>();
         }
         InitializeHit(10);
+
+        scorePool = new List<GameObject>();
+        InitializeScore(100);
     }
 
     private void InitializeBug(int count)
@@ -50,31 +66,41 @@ public class PrefabManager : MonoBehaviour
 
                 newBug.GetComponent<Bug>().SetHPCanvas();
                 newBug.GetComponent<Bug>().SetHPBar(
-                    RequestInstantiate(OBJ_TYPE.GAUGE_BG_IMAGE, newBug.GetComponent<Bug>().HpCanvas.transform),
-                    RequestInstantiate(OBJ_TYPE.GAUGE_IMAGE, newBug.GetComponent<Bug>().HpCanvas.transform));
+                    RequestInstantiate(OBJ_TYPE.HP_GAUGE_BG_IMAGE, newBug.GetComponent<Bug>().HpCanvas.transform),
+                    RequestInstantiate(OBJ_TYPE.HP_GAUGE_IMAGE, newBug.GetComponent<Bug>().HpCanvas.transform));
 
                 newBug.SetActive(false);
-                bugPools[type].Add(newBug);
+                bugPool[type].Add(newBug);
             }
         }
     }
     
     private void InitializeHit(int count)
     {
-        for (int type = 0; type < hitPools.Length; ++type)
+        for (int type = 0; type < hitPool.Length; ++type)
         {
             for (int i = 0; i < count; ++i)
             {
                 GameObject newHit = Instantiate(hitPrefabs[type], transform);
                 newHit.SetActive(false);
-                hitPools[type].Add(newHit);
+                hitPool[type].Add(newHit);
             }
+        }
+    }
+
+    private void InitializeScore(int count)
+    {
+        for (int i = 0; i < count; ++i)
+        {
+            GameObject newScore = Instantiate(scorePrefab, transform);
+            newScore.SetActive(false);
+            scorePool.Add(newScore);
         }
     }
 
     public void InitBug(BUG_TYPE type)
     {
-        foreach (GameObject bug in bugPools[(int)type])
+        foreach (GameObject bug in bugPool[(int)type])
         {
             if (bug.activeSelf)
             {
@@ -99,7 +125,7 @@ public class PrefabManager : MonoBehaviour
         GameObject selectBug = null;
 
         // 선택한 풀의 비활성화 된 게임오브젝트 접근
-        foreach(GameObject bug in bugPools[(int)type])
+        foreach(GameObject bug in bugPool[(int)type])
         {
             if (!bug.activeSelf)
             {
@@ -115,7 +141,7 @@ public class PrefabManager : MonoBehaviour
         {
             // 새롭게 생성하고 selectBug에 할당
             selectBug = Instantiate(bugPrefabs[(int)type], transform);
-            bugPools[(int)type].Add(selectBug);
+            bugPool[(int)type].Add(selectBug);
         }
 
         return selectBug;
@@ -126,7 +152,7 @@ public class PrefabManager : MonoBehaviour
         GameObject selectHit = null;
 
         // 선택한 풀의 비활성화 된 게임오브젝트 접근
-        foreach(GameObject hit in hitPools[(int)type])
+        foreach(GameObject hit in hitPool[(int)type])
         {
             if (!hit.activeSelf)
             {
@@ -142,10 +168,57 @@ public class PrefabManager : MonoBehaviour
         {
             // 새롭게 생성하고 selectBug에 할당
             selectHit = Instantiate(hitPrefabs[(int)type], transform);
-            hitPools[(int)type].Add(selectHit);
+            hitPool[(int)type].Add(selectHit);
         }
 
         return selectHit;
     }
 
+    public GameObject GetScoreObj()
+    {
+        GameObject selectHit = null;
+
+        // 선택한 풀의 비활성화 된 게임오브젝트 접근
+        foreach (GameObject score in scorePool)
+        {
+            if (!score.activeSelf)
+            {
+                // 발견하면 selectBug에 할당
+                selectHit = score;
+                selectHit.SetActive(true);
+                break;
+            }
+        }
+
+        // 못 찾았으면
+        if (!selectHit)
+        {
+            // 새롭게 생성하고 selectBug에 할당
+            selectHit = Instantiate(scorePrefab, transform);
+            scorePool.Add(selectHit);
+        }
+
+        return selectHit;
+    }
+
+    public Stack<GameObject> GetActiveBugs(BUG_TYPE bugType)
+    {
+        Stack<GameObject> selectBug = new Stack<GameObject>();
+
+        // 활성화 된 벌레들을 가져옴
+        foreach (GameObject bug in bugPool[(int)bugType])
+        {
+            if (bug.activeSelf)
+            {
+                selectBug.Push(bug);
+            }
+        }
+
+        return selectBug;
+    }
+
+    public float GetBugSound()
+    {
+        return bugPool[0][0].GetComponent<Bug>().GetVolume();
+    }
 }

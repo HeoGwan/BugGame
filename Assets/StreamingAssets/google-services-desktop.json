@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "595593198195",
+    "firebase_url": "https://killthebug-40fa9-default-rtdb.firebaseio.com",
+    "project_id": "killthebug-40fa9",
+    "storage_bucket": "killthebug-40fa9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595593198195:android:64f4712b0760b2b19cc806",
+        "android_client_info": {
+          "package_name": "com.siming.killthebug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595593198195-rsikf344ni60t2ka5d5pqm1dbi3044oc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzbcFETfUD-6D-L3VPqxN2hv5q6_KA_l8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595593198195-rsikf344ni60t2ka5d5pqm1dbi3044oc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

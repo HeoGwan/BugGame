@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using CESCO;
 using UnityEditor;
-using UnityEditor.Tilemaps;
 
 public class Tool : MonoBehaviour
 {
@@ -44,12 +43,28 @@ public class Tool : MonoBehaviour
         set { toolSpeed = value; }
     }
 
+    [SerializeField] protected float damage;
+    public float Damage { get { return damage; } }
+    [SerializeField] private TOOL_DAMAGE toolDamage;
+    public TOOL_DAMAGE ToolDamage
+    { 
+        get { return toolDamage; }
+        set { toolDamage = value; }
+    }
+    // 데미지 최대 단계
+    [SerializeField] private int maxDamageLevel;
+    private int damageLevel = 1;
+
     // 매우 느림, 느림, 보통, 빠름, 매우 빠름
     private float[] rates = { 1f, 0.7f, 0.5f, 0.3f, 0.1f };
     // 작음, 보통, 큼
     private float[] radiuses = { 0.8f, 1.2f, 1.6f };
     // 매우 느림, 느림, 보통, 빠름, 매우 빠름
     private float[] speeds = { 3f, 5f, 8f, 10f, 12f };
+
+    [TextArea]
+    [SerializeField] private string toolInfo;
+    public string ToolInfo { get { return toolInfo; } }
     #endregion
 
     [SerializeField] protected TOOL tool;
@@ -69,10 +84,6 @@ public class Tool : MonoBehaviour
     {
         get { return toolName; }
     }
-
-    [SerializeField] protected float damage;
-    public float Damage { get { return damage; } }
-
     [SerializeField] protected Sprite toolImage;
     public Sprite ToolImage { get { return toolImage; } }
 
@@ -130,6 +141,25 @@ public class Tool : MonoBehaviour
         }
     }
 
+    public string GetDamageText()
+    {
+        switch (toolDamage)
+        {
+            case TOOL_DAMAGE.VERY_WEAK:
+                return "매우 약함";
+            case TOOL_DAMAGE.WEAK:
+                return "약함";
+            case TOOL_DAMAGE.NORMAL:
+                return "보통";
+            case TOOL_DAMAGE.STRONG:
+                return "강함";
+            case TOOL_DAMAGE.VERY_STRONG:
+                return "매우 강함";
+            default:
+                return "";
+        }
+    }
+    
     public void SetRate()
     {
         hitDelay = rates[(int)toolRate];
@@ -160,6 +190,12 @@ public class Tool : MonoBehaviour
     private void SetSpeed(TOOL_SPEED attr)
     {
         speed = speeds[(int)attr];
+    }
+    
+    public void SetDamage()
+    {
+        damage *= damageLevel;
+        damageLevel = damageLevel < maxDamageLevel ? ++damageLevel : damageLevel;
     }
     #endregion
 
@@ -198,35 +234,35 @@ public class Tool : MonoBehaviour
         Init();
     }
 
-    protected void Awake(TOOL_SPEED hitDelay, string toolName)
-    {
-        this.toolName = toolName;
-        SetRate(hitDelay);
-        SetRadius();
-        SetSpeed();
+    //protected void Awake(TOOL_SPEED hitDelay, string toolName)
+    //{
+    //    this.toolName = toolName;
+    //    SetRate(hitDelay);
+    //    SetRadius();
+    //    SetSpeed();
 
-        Init();
-    }
+    //    Init();
+    //}
 
-    protected void Awake(TOOL_SPEED hitDelay, TOOL_RADIUS radius, string toolName)
-    {
-        this.toolName = toolName;
-        SetRate(hitDelay);
-        SetRadius(radius);
-        SetSpeed();
+    //protected void Awake(TOOL_SPEED hitDelay, TOOL_RADIUS radius, string toolName)
+    //{
+    //    this.toolName = toolName;
+    //    SetRate(hitDelay);
+    //    SetRadius(radius);
+    //    SetSpeed();
 
-        Init();
-    }
+    //    Init();
+    //}
 
-    protected void Awake(TOOL_SPEED hitDelay, TOOL_RADIUS radius, TOOL_SPEED speed, string toolName)
-    {
-        this.toolName = toolName;
-        SetRate(hitDelay);
-        SetRadius(radius);
-        SetSpeed(speed);
+    //protected void Awake(TOOL_SPEED hitDelay, TOOL_RADIUS radius, TOOL_SPEED speed, string toolName)
+    //{
+    //    this.toolName = toolName;
+    //    SetRate(hitDelay);
+    //    SetRadius(radius);
+    //    SetSpeed(speed);
 
-        Init();
-    }
+    //    Init();
+    //}
 
     protected void FixedUpdate()
     {
@@ -261,7 +297,7 @@ public class Tool : MonoBehaviour
         // 모든 도구가 공통으로 가짐
     }
 
-    public void SetTool()
+    public virtual void SetTool()
     {
         GameManager.instance.CurrentPlayer.CurrentHitPos.GetComponent<SpriteRenderer>().sprite = toolImage;
     }

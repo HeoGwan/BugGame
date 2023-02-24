@@ -17,21 +17,23 @@ public class ElectricFlySwatter : Tool
     [SerializeField] float maxAttackTime; // 최대로 누르고 있을 수 있는 시간
     [SerializeField] float attackDuration; // 누르는 동안의 공격 주기
 
-    // TODO 전기 이펙트 만들기
     [SerializeField] GameObject gaugeCanvas;
     [SerializeField] float yOffset;
-    GameObject gaugeBGObj;
-    GameObject gaugeObj;
+    GameObject gaugeBGObj = null;
+    GameObject gaugeObj = null;
 
     private new void Awake()
     {
         base.Awake();
 
-        gaugeCanvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
-        gaugeCanvas.GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        if (gaugeBGObj == null)
+        {
+            gaugeCanvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
+            gaugeCanvas.GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 
-        gaugeBGObj = GameManager.instance.prefabManager.RequestInstantiate(OBJ_TYPE.GAUGE_BG_IMAGE, gaugeCanvas.transform);
-        gaugeObj = GameManager.instance.prefabManager.RequestInstantiate(OBJ_TYPE.GAUGE_IMAGE, gaugeCanvas.transform);
+            gaugeBGObj = GameManager.instance.prefabManager.RequestInstantiate(OBJ_TYPE.TOOL_GAUGE_BG_IMAGE, gaugeCanvas.transform);
+            gaugeObj = GameManager.instance.prefabManager.RequestInstantiate(OBJ_TYPE.TOOL_GAUGE_IMAGE, gaugeCanvas.transform);
+        }
     }
 
     private new void OnEnable()
@@ -52,44 +54,28 @@ public class ElectricFlySwatter : Tool
     {
         if (!isPressed) { return; }
 
-        attackDurationTime = attackTime += Time.deltaTime;
-        gaugeObj.GetComponent<Image>().fillAmount = attackDurationTime / maxAttackTime;
-        CheckAttack();
-    }
+        attackTime += Time.deltaTime;
+        attackDurationTime += Time.deltaTime;
+        gaugeObj.GetComponent<Image>().fillAmount = attackTime / maxAttackTime;
 
-    void InitGauge()
-    {
-        gaugeObj.GetComponent<Image>().fillAmount = 0;
-    }
-
-    void CheckAttack()
-    {
         if (attackTime >= maxAttackTime)
         {
-            print("Stop Attack");
             // 공격 중지
             StopAttack();
         }
 
         if (attackDurationTime >= attackDuration)
         {
+            attackDurationTime = 0;
             // 전기 공격
             ElectricAttack();
+            GameManager.instance.soundManager.EffectPlay(tool);
         }
     }
 
-    public override void HitButtonDown()
+    void InitGauge()
     {
-        isPressed = true;
-        GameManager.instance.CurrentPlayer.CurrentHitPos.GetComponent<ShowHitPos>().StartFollowHitAnimation();
-        print("전기 파리채 Hit Button Down");
-    }
-
-    public override void HitButtonUp()
-    {
-        StopAttack();
-
-        print("전기 파리채 Hit Button Up");
+        gaugeObj.GetComponent<Image>().fillAmount = 0;
     }
 
     void StopAttack()
@@ -113,10 +99,16 @@ public class ElectricFlySwatter : Tool
 
         // 때리는 애니메이션 재생
         GameManager.instance.CurrentPlayer.CurrentHitPos.GetComponent<ShowHitPos>().PlayHitAnimation(tool, 0.1f);
-
-        // 전기 공격
-        // 전기 애니메이션이 보이며 범위 내에 있는 벌레들이 데미지를 입는다.
-        attackDurationTime = 0;
     }
 
+    public override void HitButtonDown()
+    {
+        isPressed = true;
+        GameManager.instance.CurrentPlayer.CurrentHitPos.GetComponent<ShowHitPos>().StartFollowHitAnimation();
+    }
+
+    public override void HitButtonUp()
+    {
+       StopAttack();
+    }
 }

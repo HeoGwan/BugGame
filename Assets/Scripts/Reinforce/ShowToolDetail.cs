@@ -6,16 +6,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public struct Price {
-    public Price(int ratePrice, int radiusPrice, int speedPrice)
+    public Price(int ratePrice, int radiusPrice, int speedPrice, int damagePrice)
     {
         RatePrice = ratePrice;
         RadiusPrice = radiusPrice;
         SpeedPrice = speedPrice;
+        DamagePrice = damagePrice;
     }
 
     public int RatePrice { get; set; }
     public int RadiusPrice { get; set; }
     public int SpeedPrice { get; set; }
+    public int DamagePrice { get; set; }
 }
 
 public class ShowToolDetail : MonoBehaviour
@@ -24,22 +26,37 @@ public class ShowToolDetail : MonoBehaviour
     private Tool selectToolScript;
 
     public Image toolImage;
+    
+    [Header("▼ 도구 속성 정보")]
     public TextMeshProUGUI toolName;
     public TextMeshProUGUI toolRateOfHit;
     public TextMeshProUGUI toolRadius;
     public TextMeshProUGUI toolSpeed;
+    public TextMeshProUGUI toolDamage;
+    
+    [Header("▼ 강화 버튼")]
     public Button RateButton;
     public Button RadiusButton;
     public Button SpeedButton;
+    public Button DamageButton;
+
+    [Header("▼ 강화 금액 정보")]
     public TextMeshProUGUI ratePriceText;
     public TextMeshProUGUI radiusPriceText;
     public TextMeshProUGUI speedPriceText;
+    public TextMeshProUGUI damagePriceText;
 
-    private Price price;
+    [Header("▼ 도구 정보")]
+    [SerializeField] GameObject toolInfoObj;
+    [SerializeField] TextMeshProUGUI toolInfo;
+
+    Price price;
+    bool isShowToolInfo = false;
 
     private void Awake()
     {
-        price = new Price(0, 0, 0);
+        price = new Price(0, 0, 0, 0);
+        toolInfoObj.SetActive(false);
     }
 
     public void SelectTool(GameObject selectTool)
@@ -57,6 +74,7 @@ public class ShowToolDetail : MonoBehaviour
 
         // 도구 정보
         toolName.text = selectToolScript.ToolName;
+        toolInfo.text = selectToolScript.ToolInfo;
         ShowAttributes();
         ShowPrices();
 
@@ -68,6 +86,7 @@ public class ShowToolDetail : MonoBehaviour
         toolRateOfHit.text = selectToolScript.GetRateText();
         toolRadius.text = selectToolScript.GetRadiusText();
         toolSpeed.text = selectToolScript.GetSpeedText();
+        toolDamage.text = selectToolScript.GetDamageText();
     }
 
     public Price ShowPrices()
@@ -75,10 +94,12 @@ public class ShowToolDetail : MonoBehaviour
         price.RatePrice = GetPrice(selectToolScript.ToolRate);
         price.RadiusPrice = GetPrice(selectToolScript.ToolRadius);
         price.SpeedPrice = GetPrice(selectToolScript.ToolSpeed);
+        price.DamagePrice = GetPrice(selectToolScript.ToolDamage);
 
         ratePriceText.text = price.RatePrice == -1 ? "강화 불가" : price.RatePrice + "원";
         radiusPriceText.text = price.RadiusPrice == -1 ? "강화 불가" : price.RadiusPrice + "원";
         speedPriceText.text = price.SpeedPrice == -1 ? "강화 불가" : price.SpeedPrice + "원";
+        damagePriceText.text = price.DamagePrice == -1 ? "강화 불가" : price.DamagePrice + "원";
 
         return price;
     }
@@ -111,5 +132,28 @@ public class ShowToolDetail : MonoBehaviour
             default:
                 return -1;
         }
+    }
+
+    private int GetPrice(TOOL_DAMAGE toolAttr)
+    {
+        switch (toolAttr)
+        {
+            case TOOL_DAMAGE.VERY_WEAK:
+                return 10000;
+            case TOOL_DAMAGE.WEAK:
+                return 15000;
+            case TOOL_DAMAGE.NORMAL:
+                return 20000;
+            case TOOL_DAMAGE.STRONG:
+                return 25000;
+            default:
+                return -1;
+        }
+    }
+
+    public void ShowToolInfo()
+    {
+        isShowToolInfo = !isShowToolInfo;
+        toolInfoObj.SetActive(isShowToolInfo);
     }
 }

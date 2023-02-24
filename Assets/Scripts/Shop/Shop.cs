@@ -44,11 +44,11 @@ public class Shop : MonoBehaviour
 
             shopItem.GetComponent<Button>().onClick.AddListener(() =>
             {
+                GameManager.instance.soundManager.UIEffectPlay(1);
                 BuyItemObj.GetComponent<BuyItem>().Init(shopItem);
                 BuyItemObj.SetActive(true);
             });
 
-            //shopItems.Insert((int)item.GetComponent<ShopItem>().ToolType, shopItem);
             shopItems.Add(shopItem);
         }
     }

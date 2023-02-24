@@ -15,9 +15,17 @@ public class BuyItem : MonoBehaviour
     public TextMeshProUGUI ItemRadius;
     public TextMeshProUGUI ItemSpeed;
     public TextMeshProUGUI ItemPrice;
+    public TextMeshProUGUI ItemInfo;
+    public GameObject toolInfoObj;
 
     private TOOL itemToolType;
     private int itemPrice;
+    private bool isShowInfo = false;
+
+    private void Awake()
+    {
+        toolInfoObj.SetActive(isShowInfo);
+    }
 
     public void Init(GameObject buyItemObj)
     {
@@ -27,9 +35,9 @@ public class BuyItem : MonoBehaviour
         // buyItem의 첫번째 자식은 ItemImage이다.
         // buyItem.transform.GetChild(0).gameObject.GetComponent<Image>()
         // 구매하려는 아이템의 이미지 정보
-        buyItemImage.sprite = buyItemObj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite;
+        Tool toolInfo = buyItemObj.GetComponent<ShopItem>().ToolInfo;
 
-        Tool toolInfo = GameManager.instance.toolManager.GetToolInfo(itemToolType);
+        buyItemImage.sprite = toolInfo.ToolImage;
 
         // buyItem.GetComponent<Tool>()
         // 구매하려는 아이템의 정보
@@ -38,6 +46,7 @@ public class BuyItem : MonoBehaviour
         ItemRadius.text = toolInfo.GetRadiusText();
         ItemSpeed.text = toolInfo.GetSpeedText();
         ItemPrice.text = itemPrice + "원";
+        ItemInfo.text = toolInfo.ToolInfo;
     }
 
     public void Buy()
@@ -50,5 +59,11 @@ public class BuyItem : MonoBehaviour
     {
         // 취소 버튼에 연결됨
         gameObject.SetActive(false);
+    }
+
+    public void ShowToolInfo()
+    {
+        isShowInfo = !isShowInfo;
+        toolInfoObj.SetActive(isShowInfo);
     }
 }

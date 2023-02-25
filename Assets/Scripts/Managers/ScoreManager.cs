@@ -17,16 +17,26 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ScoreText;
     [SerializeField] private TextMeshProUGUI TotalScoreText;
 
-    public Stack<ScoreData> scoreDatas { get; set; }
+    private Stack<ScoreData> scoreDatas;
+
+    public Stack<ScoreData> ScoreDatas
+    {
+        get { return scoreDatas; }
+    }
 
     private void Awake()
     {
         scoreDatas = new Stack<ScoreData>();
     }
 
-    public void GetScoreData(string nickname, string data, string score)
+    public void InitScoreData()
     {
-        scoreDatas.Push(new ScoreData(nickname, data, score));
+        scoreDatas.Clear();
+    }
+
+    public void GetScoreData(string nickname, string date, string score)
+    {
+        scoreDatas.Push(new ScoreData(nickname, date, score));
     }
 
     void Start()

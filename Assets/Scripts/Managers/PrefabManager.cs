@@ -176,7 +176,7 @@ public class PrefabManager : MonoBehaviour
 
     public GameObject GetScoreObj()
     {
-        GameObject selectHit = null;
+        GameObject selectScore = null;
 
         // 선택한 풀의 비활성화 된 게임오브젝트 접근
         foreach (GameObject score in scorePool)
@@ -184,21 +184,27 @@ public class PrefabManager : MonoBehaviour
             if (!score.activeSelf)
             {
                 // 발견하면 selectBug에 할당
-                selectHit = score;
-                selectHit.SetActive(true);
+                selectScore = score;
+                selectScore.SetActive(true);
                 break;
             }
         }
 
         // 못 찾았으면
-        if (!selectHit)
+        if (!selectScore)
         {
             // 새롭게 생성하고 selectBug에 할당
-            selectHit = Instantiate(scorePrefab, transform);
-            scorePool.Add(selectHit);
+            selectScore = Instantiate(scorePrefab, transform);
+            scorePool.Add(selectScore);
         }
 
-        return selectHit;
+        return selectScore;
+    }
+
+    public void PutBackScoreObj(GameObject scoreObj)
+    {
+        scoreObj.SetActive(false);
+        scoreObj.transform.SetParent(transform);
     }
 
     public Stack<GameObject> GetActiveBugs(BUG_TYPE bugType)

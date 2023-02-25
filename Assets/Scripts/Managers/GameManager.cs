@@ -30,7 +30,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject target;
     [SerializeField] private TextMeshProUGUI finalScore;
     [SerializeField] private GameObject inputNicknameObj;
-    [SerializeField] private GameOver gameOver;
+    [SerializeField] private TMP_InputField nicknameField;
+
+    private bool isSave = false;
 
     public Player CurrentPlayer
     {
@@ -99,11 +101,6 @@ public class GameManager : MonoBehaviour
         CameraSize = Camera.main.orthographicSize;
     }
 
-    private void Start()
-    {
-        databaseManager.GetData();
-    }
-
     private void Update()
     {
         if (gameState == GAME_STATE.RUNNING)
@@ -132,6 +129,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         level = 0;
         gameScore = 0;
+        isSave = false;
     }
 
     public void GameStart()
@@ -161,8 +159,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        print("Game Over!");
-        gameOver.GetScores();
+        databaseManager.GetData(false);
         screenManager.ChangeScreen(SCREEN.GAMEOVER);
         // 게임 오버 조건
         GameEnd();
@@ -352,13 +349,23 @@ public class GameManager : MonoBehaviour
 
     public void ShowInputNickname()
     {
-        inputNicknameObj.SetActive(true);
+        if (!isSave)
+        {
+            inputNicknameObj.SetActive(true);
+        }
     }
 
-    public void SaveScore(string nickname)
+    public void SaveScore()
     {
+        string nickname = nicknameField.text;
+
+        if (nickname == "")
+        {
+            return;
+        }
+
         // 스코어 저장 기능
-        if(databaseManager.WriteData(nickname, gameScore))
+        if (databaseManager.WriteData(nickname, gameScore))
         {
             print("데이터 저장 완료");
         }
@@ -366,6 +373,14 @@ public class GameManager : MonoBehaviour
         {
             print("데이터 저장 실패");
         }
+        nicknameField.text = "";
+
+        // 데이터를 저장했으니 기존에 있던 스코어 목록을 갱신해준다.
+        scoreManager.InitScoreData();
+        inputNicknameObj.SetActive(false);
+        isSave = true;
+
+        databaseManager.GetData(true);
     }
 
     public void CancelInputNickname()

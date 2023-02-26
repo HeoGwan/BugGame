@@ -84,7 +84,7 @@ namespace CESCO
         NONE,
     }
 
-    public enum TOOL_SPEED
+    public enum TOOL_RATE
     {
         SUPER_SLOW,     // 매우 느림
         SLOW,           //   느림
@@ -98,6 +98,15 @@ namespace CESCO
         SMALL,          // 작음
         MEDIUM,         // 보통
         LARGE,          //  큼
+    }
+        
+    public enum TOOL_SPEED
+    {
+        SUPER_SLOW,     // 매우 느림
+        SLOW,           //   느림
+        NORMAL,         //   보통
+        FAST,           //   빠름
+        SUPER_FAST      // 매우 빠름
     }
 
     public enum TOOL_DAMAGE

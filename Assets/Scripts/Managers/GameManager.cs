@@ -193,6 +193,7 @@ public class GameManager : MonoBehaviour
     public void GameRule()
     {
         // 게임 방법 화면을 보여줌
+        screenManager.ChangeScreen(SCREEN.GAMERULE);
     }
 
     public void GameSetting()

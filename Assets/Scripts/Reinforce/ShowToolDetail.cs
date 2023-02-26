@@ -50,6 +50,7 @@ public class ShowToolDetail : MonoBehaviour
     [SerializeField] GameObject toolInfoObj;
     [SerializeField] TextMeshProUGUI toolInfo;
 
+    Price basePrice;
     Price price;
     bool isShowToolInfo = false;
 
@@ -75,6 +76,12 @@ public class ShowToolDetail : MonoBehaviour
         // 도구 정보
         toolName.text = selectToolScript.ToolName;
         toolInfo.text = selectToolScript.ToolInfo;
+
+        basePrice.RatePrice = selectToolScript.RatePrice;
+        basePrice.RadiusPrice = selectToolScript.RadiusPrice;
+        basePrice.SpeedPrice = selectToolScript.SpeedPrice;
+        basePrice.DamagePrice = selectToolScript.DamagePrice;
+
         ShowAttributes();
         ShowPrices();
 
@@ -104,51 +111,93 @@ public class ShowToolDetail : MonoBehaviour
         return price;
     }
 
+    private int GetPrice(TOOL_RATE toolAttr)
+    {
+        if (toolAttr == TOOL_RATE.SUPER_FAST)
+        {
+            return -1;
+        }
+
+        return basePrice.RatePrice + (int)(basePrice.RatePrice * 0.5f * (int)toolAttr);
+        //switch (toolAttr)
+        //{
+        //    case TOOL_RATE.SUPER_SLOW:
+        //        return basePrice.RatePrice;
+        //    case TOOL_RATE.SLOW:
+        //        return basePrice.RatePrice + (int)(basePrice.RatePrice * 0.5f * (int)toolAttr);
+        //    case TOOL_RATE.NORMAL:
+        //        return 20000;
+        //    case TOOL_RATE.FAST:
+        //        return 25000;
+        //    default:
+        //        return -1;
+        //}
+    }
+    
     private int GetPrice(TOOL_SPEED toolAttr)
     {
-        switch (toolAttr)
+        if (toolAttr == TOOL_SPEED.SUPER_FAST)
         {
-            case TOOL_SPEED.SUPER_SLOW:
-                return 10000;
-            case TOOL_SPEED.SLOW:
-                return 15000;
-            case TOOL_SPEED.NORMAL:
-                return 20000;
-            case TOOL_SPEED.FAST:
-                return 25000;
-            default:
-                return -1;
+            return -1;
         }
+
+        return basePrice.SpeedPrice + (int)(basePrice.SpeedPrice * 0.5f * (int)toolAttr);
+
+        //switch (toolAttr)
+        //{
+        //    case TOOL_SPEED.SUPER_SLOW:
+        //        return basePrice.SpeedPrice;
+        //    case TOOL_SPEED.SLOW:
+        //        return 15000;
+        //    case TOOL_SPEED.NORMAL:
+        //        return 20000;
+        //    case TOOL_SPEED.FAST:
+        //        return 25000;
+        //    default:
+        //        return -1;
+        //}
     }
 
     private int GetPrice(TOOL_RADIUS toolAttr)
     {
-        switch (toolAttr)
+        if (toolAttr == TOOL_RADIUS.LARGE)
         {
-            case TOOL_RADIUS.SMALL:
-                return 10000;
-            case TOOL_RADIUS.MEDIUM:
-                return 20000;
-            default:
-                return -1;
+            return -1;
         }
+
+        return basePrice.RadiusPrice + (int)(basePrice.RadiusPrice * 0.5f * (int)toolAttr);
+        //switch (toolAttr)
+        //{
+        //    case TOOL_RADIUS.SMALL:
+        //        return basePrice.RadiusPrice;
+        //    case TOOL_RADIUS.MEDIUM:
+        //        return 20000;
+        //    default:
+        //        return -1;
+        //}
     }
 
     private int GetPrice(TOOL_DAMAGE toolAttr)
     {
-        switch (toolAttr)
+        if (toolAttr == TOOL_DAMAGE.VERY_STRONG)
         {
-            case TOOL_DAMAGE.VERY_WEAK:
-                return 10000;
-            case TOOL_DAMAGE.WEAK:
-                return 15000;
-            case TOOL_DAMAGE.NORMAL:
-                return 20000;
-            case TOOL_DAMAGE.STRONG:
-                return 25000;
-            default:
-                return -1;
+            return -1;
         }
+
+        return basePrice.DamagePrice + (int)(basePrice.DamagePrice * 0.5f * (int)toolAttr);
+        //switch (toolAttr)
+        //{
+        //    case TOOL_DAMAGE.VERY_WEAK:
+        //        return basePrice.DamagePrice;
+        //    case TOOL_DAMAGE.WEAK:
+        //        return 15000;
+        //    case TOOL_DAMAGE.NORMAL:
+        //        return 20000;
+        //    case TOOL_DAMAGE.STRONG:
+        //        return 25000;
+        //    default:
+        //        return -1;
+        //}
     }
 
     public void ShowToolInfo()

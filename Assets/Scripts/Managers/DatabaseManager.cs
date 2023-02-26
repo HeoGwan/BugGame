@@ -75,7 +75,7 @@ public class DatabaseManager : MonoBehaviour
     {
         try
         {
-            string date = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             DatabaseReference data = databaseReference.Child("users").Push();
 

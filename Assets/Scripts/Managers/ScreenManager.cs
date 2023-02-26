@@ -64,6 +64,10 @@ public class ScreenManager : MonoBehaviour
             // BGM Ãâ·Â
             GameManager.instance.soundManager.RandomBGMPlay();
         }
+        else if (screen == SCREEN.GAMERULE)
+        {
+            GameManager.instance.soundManager.PlayRule();
+        }
 
         if (ScreenStack.Contains(SCREEN.INGAME))
         {

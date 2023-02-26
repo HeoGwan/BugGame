@@ -29,6 +29,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip[] BGMSounds;
     public AudioClip[] EffectSounds;
     public AudioClip[] UIEffectSounds;
+    public AudioClip ruleBGM;
 
     private List<AudioSource> Sounds;
 
@@ -91,6 +92,13 @@ public class SoundManager : MonoBehaviour
     public void BGMStop()
     {
         BGMSound.Stop();
+    }
+
+    public void PlayRule()
+    {
+        BGMSound.clip = ruleBGM;
+        BGMSound.loop = true;
+        BGMSound.Play();
     }
 
     public void ChangeVolume(SOUND sound, float volume)

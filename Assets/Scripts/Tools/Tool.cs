@@ -12,12 +12,15 @@ public class Tool : MonoBehaviour
     //     1,     0.7,  0.5,  0.3,     0.1
     [SerializeField] protected float hitDelay = .5f;
     public float Delay { get { return hitDelay; } }
-    [SerializeField] private TOOL_SPEED toolRate;
-    public TOOL_SPEED ToolRate
+    [SerializeField] private TOOL_RATE toolRate;
+    public TOOL_RATE ToolRate
     {
         get { return toolRate; }
         set { toolRate = value; }
     }
+
+    [SerializeField] private int ratePrice;
+    public int RatePrice { get { return ratePrice; } }
 
     // 범위
     // 작음, 보통, 큼
@@ -31,6 +34,9 @@ public class Tool : MonoBehaviour
         set { toolRadius = value; }
     }
 
+    [SerializeField] private int radiusPrice;
+    public int RadiusPrice { get { return radiusPrice; } }
+
     // 이동 속도
     // 매우 느림, 느림, 보통, 빠름, 매우 빠름
     //     0.5,    0.7,   1,   1.3,    1.5
@@ -42,6 +48,9 @@ public class Tool : MonoBehaviour
         get { return toolSpeed; }
         set { toolSpeed = value; }
     }
+
+    [SerializeField] private int speedPrice;
+    public int SpeedPrice { get { return speedPrice; } }
 
     [SerializeField] protected float damage;
     public float Damage { get { return damage; } }
@@ -55,12 +64,17 @@ public class Tool : MonoBehaviour
     [SerializeField] private int maxDamageLevel;
     private int damageLevel = 1;
 
+    [SerializeField] private int damagePrice;
+    public int DamagePrice { get { return damagePrice; } }
+
+
     // 매우 느림, 느림, 보통, 빠름, 매우 빠름
     private float[] rates = { 1f, 0.7f, 0.5f, 0.3f, 0.1f };
     // 작음, 보통, 큼
     private float[] radiuses = { 0.8f, 1.2f, 1.6f };
     // 매우 느림, 느림, 보통, 빠름, 매우 빠름
     private float[] speeds = { 3f, 5f, 8f, 10f, 12f };
+
 
     [TextArea]
     [SerializeField] private string toolInfo;
@@ -92,15 +106,15 @@ public class Tool : MonoBehaviour
     {
         switch (toolRate)
         {
-            case TOOL_SPEED.SUPER_SLOW:
+            case TOOL_RATE.SUPER_SLOW:
                 return "매우 느림";
-            case TOOL_SPEED.SLOW:
+            case TOOL_RATE.SLOW:
                 return "느림";
-            case TOOL_SPEED.NORMAL:
+            case TOOL_RATE.NORMAL:
                 return "보통";
-            case TOOL_SPEED.FAST:
+            case TOOL_RATE.FAST:
                 return "빠름";
-            case TOOL_SPEED.SUPER_FAST:
+            case TOOL_RATE.SUPER_FAST:
                 return "매우 빠름";
             default:
                 return "";
@@ -165,7 +179,7 @@ public class Tool : MonoBehaviour
         hitDelay = rates[(int)toolRate];
     }
 
-    private void SetRate(TOOL_SPEED attr)
+    private void SetRate(TOOL_RATE attr)
     {
         hitDelay = rates[(int)attr];
     }
@@ -233,36 +247,6 @@ public class Tool : MonoBehaviour
         SetSpeed();
         Init();
     }
-
-    //protected void Awake(TOOL_SPEED hitDelay, string toolName)
-    //{
-    //    this.toolName = toolName;
-    //    SetRate(hitDelay);
-    //    SetRadius();
-    //    SetSpeed();
-
-    //    Init();
-    //}
-
-    //protected void Awake(TOOL_SPEED hitDelay, TOOL_RADIUS radius, string toolName)
-    //{
-    //    this.toolName = toolName;
-    //    SetRate(hitDelay);
-    //    SetRadius(radius);
-    //    SetSpeed();
-
-    //    Init();
-    //}
-
-    //protected void Awake(TOOL_SPEED hitDelay, TOOL_RADIUS radius, TOOL_SPEED speed, string toolName)
-    //{
-    //    this.toolName = toolName;
-    //    SetRate(hitDelay);
-    //    SetRadius(radius);
-    //    SetSpeed(speed);
-
-    //    Init();
-    //}
 
     protected void FixedUpdate()
     {

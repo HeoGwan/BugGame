@@ -19,7 +19,6 @@ public class ToolManager : MonoBehaviour
         {
             GameObject tool = Instantiate(toolObj, transform);
             tool.SetActive(false);
-            //tools.Insert((int)tool.GetComponent<Tool>().ToolType, tool);
             AddTool(tool);
         }
     }
@@ -33,7 +32,6 @@ public class ToolManager : MonoBehaviour
 
     public void ReturnTool(GameObject tool)
     {
-        //tools.Insert((int)tool.GetComponent<Tool>().ToolType, tool);
         tool.SetActive(false);
         AddTool(tool);
     }
@@ -64,7 +62,7 @@ public class ToolManager : MonoBehaviour
 
     public void ReinforceRate(GameObject tool)
     {
-        if (tool.GetComponent<Tool>().ToolRate == TOOL_SPEED.SUPER_FAST) return;
+        if (tool.GetComponent<Tool>().ToolRate == TOOL_RATE.SUPER_FAST) return;
 
         tool.GetComponent<Tool>().ToolRate += 1;
         tool.GetComponent<Tool>().SetRate();

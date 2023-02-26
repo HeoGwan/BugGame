@@ -138,16 +138,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitDelay: 0.5
   toolRate: 0
+  ratePrice: 10000
   radius: 1
   toolRadius: 0
+  radiusPrice: 10000
   speed: 10
   toolSpeed: 0
+  speedPrice: 10000
   damage: 10
   toolDamage: 0
   maxDamageLevel: 5
-  toolInfo: "\uD3C9\uBC94\uD55C \uB9E8\uC190\uC774\uB2E4.\n\uC81C\uC77C \uC57D\uD558\uAE34
+  damagePrice: 5000
+  toolInfo: "\uD3C9\uBC94\uD55C \uB9E8\uC190\uC774\uB2E4\n\uC81C\uC77C \uC57D\uD558\uAE34
     \uD558\uC9C0\uB9CC \uB3C4\uAD6C\uAC00 \uC5C6\uC73C\uBA74 \uB9E8\uC190\uC774\uB77C\uB3C4
-    \uC368\uC57C\uD55C\uB2E4.."
+    \uC368\uC57C\uD55C\uB2E4"
   tool: 0
   hasPlayer: 0
   toolName: "\uB9E8\uC190"

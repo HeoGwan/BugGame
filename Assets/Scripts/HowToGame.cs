@@ -4,15 +4,43 @@ using UnityEngine;
 
 public class HowToGame : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject[] pages;
+    [SerializeField] private GameObject prevButton;
+    [SerializeField] private GameObject nextButton;
+
+    private int page = 0;
+
+    private void OnEnable()
     {
-        
+        page = 0;
+        prevButton.SetActive(false);
+        nextButton.SetActive(true);
+        pages[page].SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PrevPage()
     {
-        
+        ShowPage(-1);
+        if (page == 0) { prevButton.SetActive(false); }
+        else if (!nextButton.activeSelf) { nextButton.SetActive(true); }
+    }
+
+    public void NextPage()
+    {
+        ShowPage(1);
+        if (page == pages.Length - 1) { nextButton.SetActive(false); }
+        else if (!prevButton.activeSelf) { prevButton.SetActive(true); }
+    }
+
+    public void ShowPage(int nextPage)
+    {
+        pages[page].SetActive(false);
+        page += nextPage;
+        pages[page].SetActive(true);
+    }
+
+    public void ExitRule()
+    {
+        GameManager.instance.screenManager.PrevScreen();
     }
 }

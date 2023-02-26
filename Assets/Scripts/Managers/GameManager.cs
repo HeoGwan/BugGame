@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
     public PayManager payManager;
     public BackgroundManager backgroundManager;
     public DatabaseManager databaseManager;
+    public AdMobManager adMobManager;
     #endregion
 
     private void Awake()
@@ -313,6 +314,9 @@ public class GameManager : MonoBehaviour
             Bug bug = bugs.Pop().GetComponent<Bug>();
             bug.AudioPause();
         }
+
+        // 광고 보여주기
+        adMobManager.LoadAd();
     }
 
     public void NextGame()

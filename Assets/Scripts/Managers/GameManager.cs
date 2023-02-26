@@ -314,9 +314,6 @@ public class GameManager : MonoBehaviour
             Bug bug = bugs.Pop().GetComponent<Bug>();
             bug.AudioPause();
         }
-
-        // 광고 보여주기
-        adMobManager.LoadAd();
     }
 
     public void NextGame()

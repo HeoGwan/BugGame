@@ -10,11 +10,21 @@ public class HowToGame : MonoBehaviour
 
     private int page = 0;
 
+    void ClosePages()
+    {
+        foreach (GameObject pageObj in pages)
+        {
+            if (pageObj.activeSelf) { pageObj.SetActive(false); }
+        }
+    }
+
     private void OnEnable()
     {
         page = 0;
         prevButton.SetActive(false);
         nextButton.SetActive(true);
+        ClosePages();
+
         pages[page].SetActive(true);
     }
 
@@ -41,6 +51,7 @@ public class HowToGame : MonoBehaviour
 
     public void ExitRule()
     {
+        ClosePages();
         GameManager.instance.screenManager.PrevScreen();
     }
 }

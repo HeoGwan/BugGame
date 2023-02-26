@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9ed8d2f1689e83743b21c4b6c56e3dd3
+guid: f54b511790f8b1b4caecf9b02dccc87e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 350
+  spritePixelsToUnits: 260
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -131,13 +131,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Guide_Character_0
+      name: cicada_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 700
-        width: 350
-        height: 350
+        y: 260
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00f8827f814909a4792a5d3b5c0b2477
-      internalID: -1633900122
+      spriteID: 9ae8e62b22042c84cb3832eb7998c8c2
+      internalID: -198135652
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_1
+      name: cicada_1
       rect:
         serializedVersion: 2
-        x: 350
-        y: 700
-        width: 350
-        height: 350
+        x: 260
+        y: 260
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fcb2f62f1870eb244a8fb77dfda25a96
-      internalID: -1337608455
+      spriteID: ffdaef8136bccb04cbe0e955de73e998
+      internalID: -1700970607
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_2
+      name: cicada_2
       rect:
         serializedVersion: 2
-        x: 700
-        y: 700
-        width: 350
-        height: 350
+        x: 520
+        y: 260
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c8ebf14d27bf8144b306bc8992f4295
-      internalID: -19386265
+      spriteID: 84969d9f750c170439ed6e504a5a877b
+      internalID: 200797636
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_3
+      name: cicada_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 350
-        width: 350
-        height: 350
+        x: 780
+        y: 260
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,62 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 694fe8fb350114d4fa27cf0ef32a4f39
-      internalID: 1109617073
+      spriteID: c0fff47bb094b4a4c8483ccd39758fea
+      internalID: 276728680
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_4
-      rect:
-        serializedVersion: 2
-        x: 350
-        y: 350
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 79b012fe92eacdb4e87510d00a6c5f77
-      internalID: 609815588
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Guide_Character_5
-      rect:
-        serializedVersion: 2
-        x: 700
-        y: 350
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c470c98ed8988d54d8ff3cabddb6d648
-      internalID: -1191306739
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Guide_Character_6
+      name: cicada_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 350
-        height: 350
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,20 +229,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a265ccf6088cdc498c1066782a06c84
-      internalID: -1258630436
+      spriteID: 39c8f89bf951bb544af6cb5ef926a28e
+      internalID: 1261112163
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_7
+      name: cicada_5
       rect:
         serializedVersion: 2
-        x: 350
+        x: 260
         y: 0
-        width: 350
-        height: 350
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5164e458997a42d478a0197aadd7bfb9
-      internalID: 1069612153
+      spriteID: 17b3331ecafc9d24e8cdf9685d5fc6ff
+      internalID: -1550440350
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_8
+      name: cicada_6
       rect:
         serializedVersion: 2
-        x: 700
+        x: 520
         y: 0
-        width: 350
-        height: 350
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,8 +271,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c416307cae55054ca9216dcf950aabf
-      internalID: -447796968
+      spriteID: 22fb25d8c1edb6545b8efcfca729ba7c
+      internalID: 30252005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cicada_7
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 0
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b98c65ff1989dd045afac5f33d924394
+      internalID: -133873948
       vertices: []
       indices: 
       edges: []
@@ -330,15 +309,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Guide_Character_2: -19386265
-      Guide_Character_3: 1109617073
-      Guide_Character_4: 609815588
-      Guide_Character_5: -1191306739
-      Guide_Character_1: -1337608455
-      Guide_Character_0: -1633900122
-      Guide_Character_6: -1258630436
-      Guide_Character_8: -447796968
-      Guide_Character_7: 1069612153
+      cicada_7: -133873948
+      cicada_6: 30252005
+      cicada_5: -1550440350
+      cicada_3: 276728680
+      cicada_0: -198135652
+      cicada_1: -1700970607
+      cicada_4: 1261112163
+      cicada_2: 200797636
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

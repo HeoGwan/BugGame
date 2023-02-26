@@ -30,7 +30,7 @@ public class AdMobManager : MonoBehaviour
             DestroyAd();
         }
 
-        bannerView = new BannerView(adUnitId, AdSize.MediumRectangle, AdPosition.Center);
+        bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Center);
     }
 
     public void LoadAd()
@@ -48,7 +48,7 @@ public class AdMobManager : MonoBehaviour
         bannerView.LoadAd(adRequest);
     }
 
-    void DestroyAd()
+    public void DestroyAd()
     {
         if (bannerView != null)
         {

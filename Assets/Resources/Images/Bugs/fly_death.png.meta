@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9ed8d2f1689e83743b21c4b6c56e3dd3
+guid: df1c02aaee4bc7845a45a15249dda902
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 350
+  spritePixelsToUnits: 260
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -131,13 +131,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Guide_Character_0
+      name: fly_death_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 700
-        width: 350
-        height: 350
+        y: 260
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00f8827f814909a4792a5d3b5c0b2477
-      internalID: -1633900122
+      spriteID: 29778c996b0d0c541a5a11eb6e1b57da
+      internalID: 1457526863
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_1
+      name: fly_death_1
       rect:
         serializedVersion: 2
-        x: 350
-        y: 700
-        width: 350
-        height: 350
+        x: 260
+        y: 260
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fcb2f62f1870eb244a8fb77dfda25a96
-      internalID: -1337608455
+      spriteID: e49e1d2ee3b166e4394b6278c98ad559
+      internalID: 1272310115
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_2
+      name: fly_death_2
       rect:
         serializedVersion: 2
-        x: 700
-        y: 700
-        width: 350
-        height: 350
+        x: 520
+        y: 260
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c8ebf14d27bf8144b306bc8992f4295
-      internalID: -19386265
+      spriteID: af43edec495f10c4c9780ae9cab864f9
+      internalID: -1057309594
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_3
+      name: fly_death_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 350
-        width: 350
-        height: 350
+        x: 780
+        y: 260
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,62 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 694fe8fb350114d4fa27cf0ef32a4f39
-      internalID: 1109617073
+      spriteID: e05d67936f44aa6468137a170ce1d413
+      internalID: -1713344050
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_4
-      rect:
-        serializedVersion: 2
-        x: 350
-        y: 350
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 79b012fe92eacdb4e87510d00a6c5f77
-      internalID: 609815588
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Guide_Character_5
-      rect:
-        serializedVersion: 2
-        x: 700
-        y: 350
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c470c98ed8988d54d8ff3cabddb6d648
-      internalID: -1191306739
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Guide_Character_6
+      name: fly_death_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 350
-        height: 350
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,20 +229,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a265ccf6088cdc498c1066782a06c84
-      internalID: -1258630436
+      spriteID: d99d0797275560e4789eaf7c32d2336a
+      internalID: -2108504885
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_7
+      name: fly_death_5
       rect:
         serializedVersion: 2
-        x: 350
+        x: 260
         y: 0
-        width: 350
-        height: 350
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5164e458997a42d478a0197aadd7bfb9
-      internalID: 1069612153
+      spriteID: d606e97b2305fcd4c90dac205322112c
+      internalID: 704705074
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_8
+      name: fly_death_6
       rect:
         serializedVersion: 2
-        x: 700
+        x: 520
         y: 0
-        width: 350
-        height: 350
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,8 +271,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c416307cae55054ca9216dcf950aabf
-      internalID: -447796968
+      spriteID: 4f922c46340f72140a81e49ed23ff794
+      internalID: 1440607666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fly_death_7
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 0
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 732a5385143d95f479392f1a35220bb6
+      internalID: 1473710786
       vertices: []
       indices: 
       edges: []
@@ -330,15 +309,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Guide_Character_2: -19386265
-      Guide_Character_3: 1109617073
-      Guide_Character_4: 609815588
-      Guide_Character_5: -1191306739
-      Guide_Character_1: -1337608455
-      Guide_Character_0: -1633900122
-      Guide_Character_6: -1258630436
-      Guide_Character_8: -447796968
-      Guide_Character_7: 1069612153
+      fly_death_0: 1457526863
+      fly_death_7: 1473710786
+      fly_death_1: 1272310115
+      fly_death_5: 704705074
+      fly_death_4: -2108504885
+      fly_death_2: -1057309594
+      fly_death_6: 1440607666
+      fly_death_3: -1713344050
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

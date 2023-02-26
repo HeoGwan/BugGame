@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9ed8d2f1689e83743b21c4b6c56e3dd3
+guid: b2fa9fa974bf74e47a15dbfa8bd9238a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 350
+  spritePixelsToUnits: 260
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -131,13 +131,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Guide_Character_0
+      name: mosquito_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 700
-        width: 350
-        height: 350
+        y: 520
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00f8827f814909a4792a5d3b5c0b2477
-      internalID: -1633900122
+      spriteID: 0f18a37f73bcabb4c805a75cace27a4c
+      internalID: -40608735
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_1
+      name: mosquito_1
       rect:
         serializedVersion: 2
-        x: 350
-        y: 700
-        width: 350
-        height: 350
+        x: 260
+        y: 520
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fcb2f62f1870eb244a8fb77dfda25a96
-      internalID: -1337608455
+      spriteID: 3dcc7689b633f5943abbee7b73742e0e
+      internalID: 1554186100
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_2
+      name: mosquito_2
       rect:
         serializedVersion: 2
-        x: 700
-        y: 700
-        width: 350
-        height: 350
+        x: 520
+        y: 520
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,83 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c8ebf14d27bf8144b306bc8992f4295
-      internalID: -19386265
+      spriteID: 73847198232d5164f89d8c8329fdd850
+      internalID: 376406960
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_3
+      name: mosquito_3
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 520
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 853af49be331f3d44b0455fe9f076cc7
+      internalID: 209035531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mosquito_4
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 520
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f578e01705058746a2eb31fa64eff8f
+      internalID: 449494755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mosquito_5
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 520
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6071724807baaba4f975a89b20660f9c
+      internalID: -1700883225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mosquito_6
       rect:
         serializedVersion: 2
         x: 0
-        y: 350
-        width: 350
-        height: 350
+        y: 260
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +271,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 694fe8fb350114d4fa27cf0ef32a4f39
-      internalID: 1109617073
+      spriteID: 4a805f9495d8f53489c8e360ab59d7eb
+      internalID: -1091649337
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_4
+      name: mosquito_7
       rect:
         serializedVersion: 2
-        x: 350
-        y: 350
-        width: 350
-        height: 350
+        x: 260
+        y: 260
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,20 +292,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79b012fe92eacdb4e87510d00a6c5f77
-      internalID: 609815588
+      spriteID: afd919e3ffc62574aacdf4a7ccd187d6
+      internalID: 35131563
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_5
+      name: mosquito_8
       rect:
         serializedVersion: 2
-        x: 700
-        y: 350
-        width: 350
-        height: 350
+        x: 520
+        y: 260
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +313,83 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c470c98ed8988d54d8ff3cabddb6d648
-      internalID: -1191306739
+      spriteID: d53e5be6d3b656b4bb24d62fc76ff16a
+      internalID: -5973057
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_6
+      name: mosquito_9
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 260
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c57dd98b9a8fe6b4da0278192d80ccc0
+      internalID: 115630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mosquito_10
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 260
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b8f77f5d1632064e80096374892dc1f
+      internalID: -1398275099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mosquito_11
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 260
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4334e3006a0ccf408ca2e0fb06ad9dc
+      internalID: 440528464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mosquito_12
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 350
-        height: 350
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,20 +397,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a265ccf6088cdc498c1066782a06c84
-      internalID: -1258630436
+      spriteID: 187a4b9fd86b4c64f8aedb9ff7120921
+      internalID: -1111035588
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_7
+      name: mosquito_13
       rect:
         serializedVersion: 2
-        x: 350
+        x: 260
         y: 0
-        width: 350
-        height: 350
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,20 +418,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5164e458997a42d478a0197aadd7bfb9
-      internalID: 1069612153
+      spriteID: a2b23543101491945a8cc9ede4145261
+      internalID: 1727224884
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Guide_Character_8
+      name: mosquito_14
       rect:
         serializedVersion: 2
-        x: 700
+        x: 520
         y: 0
-        width: 350
-        height: 350
+        width: 260
+        height: 260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,8 +439,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c416307cae55054ca9216dcf950aabf
-      internalID: -447796968
+      spriteID: e707693cb72cabc42825dbf583595608
+      internalID: 2016110727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mosquito_15
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 0
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36629b241a95b4444920fb91e219c42a
+      internalID: 607045148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mosquito_16
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 0
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b280bbedabc03374e923d4fa42844bc0
+      internalID: -82580633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mosquito_17
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 0
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e976bf50f4f8c87469d45e4e65d60f8e
+      internalID: -2120237935
       vertices: []
       indices: 
       edges: []
@@ -330,15 +519,24 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Guide_Character_2: -19386265
-      Guide_Character_3: 1109617073
-      Guide_Character_4: 609815588
-      Guide_Character_5: -1191306739
-      Guide_Character_1: -1337608455
-      Guide_Character_0: -1633900122
-      Guide_Character_6: -1258630436
-      Guide_Character_8: -447796968
-      Guide_Character_7: 1069612153
+      mosquito_12: -1111035588
+      mosquito_4: 449494755
+      mosquito_8: -5973057
+      mosquito_10: -1398275099
+      mosquito_15: 607045148
+      mosquito_17: -2120237935
+      mosquito_9: 115630
+      mosquito_6: -1091649337
+      mosquito_13: 1727224884
+      mosquito_2: 376406960
+      mosquito_14: 2016110727
+      mosquito_0: -40608735
+      mosquito_16: -82580633
+      mosquito_1: 1554186100
+      mosquito_3: 209035531
+      mosquito_11: 440528464
+      mosquito_7: 35131563
+      mosquito_5: -1700883225
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

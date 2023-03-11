@@ -15,6 +15,13 @@ public class HitCheckScript : MonoBehaviour
     private float attackDelay;
     private TOOL toolType;
 
+    private SpriteRenderer hitCheckImage;
+
+    private void Awake()
+    {
+        hitCheckImage = GetComponent<SpriteRenderer>();
+    }
+
     public void Show(Vector3 movePos)
     {
         transform.position = movePos;
@@ -23,7 +30,7 @@ public class HitCheckScript : MonoBehaviour
 
     public void ChangeImage(Sprite sprite)
     {
-        GetComponent<SpriteRenderer>().sprite = sprite;
+        hitCheckImage.sprite = sprite;
     }
 
     public GameObject ChangeInfo(float radius, float damage, TOOL toolType, float hitDelay = 0.1f, float attackDelay = 0, bool hitDisappear = true)

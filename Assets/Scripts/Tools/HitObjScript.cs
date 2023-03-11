@@ -8,6 +8,13 @@ public class HitObjScript : MonoBehaviour
     [SerializeField] private float animationDelay;
     [SerializeField] private float hitImageSize;
 
+    private SpriteRenderer hitImage;
+
+    private void Awake()
+    {
+        hitImage = GetComponent<SpriteRenderer>();
+    }
+
     public void Show(Vector3 movePos)
     {
         transform.position = movePos;
@@ -16,12 +23,12 @@ public class HitObjScript : MonoBehaviour
 
     public void ChangeImage()
     {
-        GetComponent<SpriteRenderer>().sprite = baseImage;
+        hitImage.sprite = baseImage;
     }
 
     public void ChangeImage(Sprite sprite)
     {
-        GetComponent<SpriteRenderer>().sprite = sprite;
+        hitImage.sprite = sprite;
     }
 
     public GameObject ChangeInfo(float radius)

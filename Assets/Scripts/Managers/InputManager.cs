@@ -6,7 +6,13 @@ using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public GameObject joyStick;
+    public GameObject joyStickObj;
+    private JoyStick joyStick;
+
+    private void Awake()
+    {
+        joyStick = joyStickObj.GetComponent<JoyStick>();
+    }
 
     void Update()
     {
@@ -14,54 +20,53 @@ public class InputManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         {
             Touch firstTouch = Input.GetTouch(0);
 
+#if UNITY_EDITOR
             print("touch.position.x: " + firstTouch.position.x);
             print("Screen.width: " + Screen.width);
             print("touch.position.x < Screen.width: " + (firstTouch.position.x < Screen.width));
+#endif
 
             switch(firstTouch.phase)
             {
                 case TouchPhase.Began:
                     if (firstTouch.position.x < Screen.width / 2)
                     {
+#if UNITY_EDITOR
                         print("터치 다운");
-                        joyStick.SetActive(true);
-                        joyStick.GetComponent<JoyStick>().OnDown(firstTouch.position);
+#endif
+                        joyStickObj.SetActive(true);
+                        joyStick.OnDown(firstTouch.position);
                     }
                     break;
                 case TouchPhase.Moved:
-                    joyStick.GetComponent<JoyStick>().Drag(firstTouch.position);
+                    joyStick.Drag(firstTouch.position);
                     break;
                 case TouchPhase.Ended:
+#if UNITY_EDITOR
                     print("터치 업");
-                    joyStick.SetActive(false);
-                    joyStick.GetComponent<JoyStick>().OnUp();
+#endif
+                    joyStickObj.SetActive(false);
+                    joyStick.OnUp();
                     break;
             }
-
-            //Touch secondTouch = Input.GetTouch(1);
-            //switch (secondTouch.phase)
-            //{
-            //    case TouchPhase.Began:
-            //        if (secondTouch.position.x > Screen.width / 2)
-            //        {
-            //            GameManager.instance.CurrentPlayer.Hit();
-            //        }
-            //        break;
-            //}
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+#if UNITY_EDITOR
         print("터치 업");
-        joyStick.SetActive(false);
-        joyStick.GetComponent<JoyStick>().OnUp();
+#endif
+        joyStickObj.SetActive(false);
+        joyStick.OnUp();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
+#if UNITY_EDITOR
         print("터치 다운");
-        joyStick.SetActive(true);
-        joyStick.GetComponent<JoyStick>().OnDown(eventData.position);
+#endif
+        joyStickObj.SetActive(true);
+        joyStick.OnDown(eventData.position);
     }
 }

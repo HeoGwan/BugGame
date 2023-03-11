@@ -6,6 +6,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject[] spawners;
+    private List<SpawnBug> spawnerScripts;
     private Coroutine spawnCoroutine = null;
 
     [SerializeField] private float minDelay;
@@ -22,6 +23,12 @@ public class SpawnManager : MonoBehaviour
         min = minDelay;
         max = maxDelay;
         bugType = BUG_TYPE.NONE;
+
+        spawnerScripts = new List<SpawnBug>();
+        foreach (GameObject spanwer in spawners)
+        {
+            spawnerScripts.Add(spanwer.GetComponent<SpawnBug>());
+        }
     }
 
     public void Init()
@@ -38,9 +45,9 @@ public class SpawnManager : MonoBehaviour
 
     public void RemoveBug()
     {
-        foreach (GameObject spawner in spawners)
+        foreach (SpawnBug spawner in spawnerScripts)
         {
-            spawner.GetComponent<SpawnBug>().Init();
+            spawner.Init();
         }
     }
 
@@ -57,9 +64,9 @@ public class SpawnManager : MonoBehaviour
     private void ChangeBugs()
     {
         bugType = (BUG_TYPE)Random.Range(0, System.Enum.GetNames(typeof(BUG_TYPE)).Length - 1);
-        foreach (GameObject spawner in spawners)
+        foreach (SpawnBug spawner in spawnerScripts)
         {
-            spawner.GetComponent<SpawnBug>().ChangeBug(bugType);
+            spawner.ChangeBug(bugType);
         }
     }
 
@@ -89,7 +96,7 @@ public class SpawnManager : MonoBehaviour
     IEnumerator BugSpawn(float delay, int index)
     {
         yield return new WaitForSeconds(delay);
-        spawners[index].GetComponent<SpawnBug>().Spawn(spawners[index].transform.position);
+        spawnerScripts[index].Spawn(spawners[index].transform.position);
         SpawnBugs();
     }
 }

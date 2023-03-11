@@ -15,7 +15,6 @@ public class Pay : MonoBehaviour
     {
         this.money = money;
         GameManager.instance.CurrentPlayer.ChangeMoney(money);
-        ShowPayInfo();
     }
 
     public void ShowPayInfo()

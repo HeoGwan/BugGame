@@ -46,13 +46,17 @@ public class DatabaseManager : MonoBehaviour
         {
             if (task.IsFaulted)
             {
+#if UNITY_EDITOR
                 Debug.LogError("Error Database");
+#endif
                 return;
             }
 
             if (!task.IsCompleted)
             {
+#if UNITY_EDITOR
                 Debug.LogError("Fail Get");
+#endif
                 return;
             }
 
@@ -87,7 +91,9 @@ public class DatabaseManager : MonoBehaviour
         }
         catch (Exception e)
         {
+#if UNITY_EDITOR
             Debug.LogWarning(e);
+#endif
             return false;
         }
     }
@@ -101,7 +107,6 @@ public class DatabaseManager : MonoBehaviour
         // 데이터를 가져와 유저에게 보여준다.
         //Stack<ScoreData> scoreDatas = GameManager.instance.scoreManager.ScoreDatas;
 
-        print("GetScores: " + scoreDatas.Count);
         while (scoreDatas.Count > 0)
         {
             GameObject scoreObj = GameManager.instance.prefabManager.GetScoreObj();
@@ -123,15 +128,18 @@ public class DatabaseManager : MonoBehaviour
     private void ReGetScores()
     {
         isSaveShowScore = false;
+        PutBackScores();
+        GetScores();
+    }
 
+    public void PutBackScores()
+    {
         // 기존에 있던 스코어목록을 되돌려놓고 다시 가져온다.
         int childCount = showScores.transform.childCount;
 
         for (int i = 0; i < childCount; ++i)
         {
-            GameManager.instance.prefabManager.PutBackScoreObj(showScores.transform.GetChild(0).gameObject);
+            GameManager.instance.prefabManager.PutBackObj(showScores.transform.GetChild(0).gameObject);
         }
-
-        GetScores();
     }
 }

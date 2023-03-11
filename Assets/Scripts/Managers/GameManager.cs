@@ -32,16 +32,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject inputNicknameObj;
     [SerializeField] private TMP_InputField nicknameField;
 
+    private Player currentPlayer;
+    private Target currentTarget;
+
     private bool isSave = false;
 
     public Player CurrentPlayer
     {
-        get { return player.GetComponent<Player>(); }
+        //get { return player.GetComponent<Player>(); }
+        get { return currentPlayer; }
     }
 
     public Target CurrentTarget
     {
-        get { return target.GetComponent<Target>(); }
+        //get { return target.GetComponent<Target>(); }
+        get { return currentTarget; }
     }
 
     public float CameraSize;
@@ -91,13 +96,19 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+#if UNITY_EDITOR
             Debug.Log("게임 매니저 존재");
+#endif
             Destroy(gameObject);
         }
 
-        mouseManager.Visible();
+        //mouseManager.Visible();
         player.SetActive(false);
         target.SetActive(false);
+
+        currentPlayer = player.GetComponent<Player>();
+        currentTarget = target.GetComponent<Target>();
+
         inputNicknameObj.SetActive(false);
         CameraSize = Camera.main.orthographicSize;
     }
@@ -106,7 +117,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GAME_STATE.RUNNING)
         {
-            if (target.GetComponent<Target>().HP <= 0)
+            if (currentTarget.HP <= 0)
             {
                 GameOver();
             }
@@ -160,10 +171,10 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        databaseManager.GetData(false);
-        screenManager.ChangeScreen(SCREEN.GAMEOVER);
         // 게임 오버 조건
         GameEnd();
+        databaseManager.GetData(false);
+        screenManager.ChangeScreen(SCREEN.GAMEOVER);
     }
 
     public void GameEnd()
@@ -171,7 +182,7 @@ public class GameManager : MonoBehaviour
         // 게임 상태 NONE으로 변경
         gameState = GAME_STATE.START;
         Time.timeScale = 0;
-        mouseManager.Visible();
+        //mouseManager.Visible();
         CancelInvoke("BugSpawn");
 
         // 플레이어, 타겟, 벌레 모두 삭제
@@ -189,6 +200,7 @@ public class GameManager : MonoBehaviour
         // 최종 스코어 저장 및 초기화
         gameScore = scoreManager.ScoreInit();
         finalScore.text = gameScore + "마리";
+        databaseManager.PutBackScores();
     }
 
     public void GameRule()
@@ -241,11 +253,10 @@ public class GameManager : MonoBehaviour
         spawnManager.StartSpawnBug();
 
         // 활성화 된 벌레들의 소리를 켬
-        Stack<GameObject> bugs = prefabManager.GetActiveBugs(spawnManager.BugType);
+        Stack<Bug> bugs = prefabManager.GetActiveBugs(spawnManager.BugType);
         while (bugs.Count > 0)
         {
-            Bug bug = bugs.Pop().GetComponent<Bug>();
-            bug.AudioPlay();
+            bugs.Pop().AudioPlay();
         }
 
         // 게임 일시정지 풀기
@@ -267,7 +278,7 @@ public class GameManager : MonoBehaviour
         screenManager.ChangeScreen(SCREEN.PAUSE);
 
         // 마우스 커서 보이기
-        mouseManager.Visible();
+        //mouseManager.Visible();
 
         // 시간 조정
         Time.timeScale = 0;
@@ -279,11 +290,10 @@ public class GameManager : MonoBehaviour
         spawnManager.StopSpawnBug();
 
         // 활성화 된 벌레들의 소리를 끔
-        Stack<GameObject> bugs = prefabManager.GetActiveBugs(spawnManager.BugType);
+        Stack<Bug> bugs = prefabManager.GetActiveBugs(spawnManager.BugType);
         while (bugs.Count > 0)
         {
-            Bug bug = bugs.Pop().GetComponent<Bug>();
-            bug.AudioPause();
+            bugs.Pop().AudioPause();
         }
     }
 
@@ -298,21 +308,21 @@ public class GameManager : MonoBehaviour
 
         player.SetActive(false);
 
+        payManager.PayMoney();
+        payManager.ShowMoney();
+
         // 정산 화면 출력
         screenManager.ChangeScreen(SCREEN.PAY);
-
-        payManager.PayMoney();
 
         // 벌레 스폰 중단
         spawnManager.StopSpawnBug();
 
         // 활성화 된 벌레들의 소리를 끔
-        Stack<GameObject> bugs = prefabManager.GetActiveBugs(spawnManager.BugType);
+        Stack<Bug> bugs = prefabManager.GetActiveBugs(spawnManager.BugType);
         while (bugs.Count > 0)
         {
             // 활성화 된 벌레들의 소리를 끔
-            Bug bug = bugs.Pop().GetComponent<Bug>();
-            bug.AudioPause();
+            bugs.Pop().AudioPause();
         }
     }
 
@@ -338,7 +348,7 @@ public class GameManager : MonoBehaviour
     public void GameExit()
     {
         #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
         #else
             Application.Quit();  
         #endif
@@ -361,7 +371,7 @@ public class GameManager : MonoBehaviour
     {
         string nickname = nicknameField.text;
 
-        if (nickname == "")
+        if (nickname == "" || nickname.Length > 10)
         {
             return;
         }
@@ -369,11 +379,15 @@ public class GameManager : MonoBehaviour
         // 스코어 저장 기능
         if (databaseManager.WriteData(nickname, gameScore))
         {
+#if UNITY_EDITOR
             print("데이터 저장 완료");
+#endif
         }
         else
         {
+#if UNITY_EDITOR
             print("데이터 저장 실패");
+#endif
         }
         nicknameField.text = "";
 

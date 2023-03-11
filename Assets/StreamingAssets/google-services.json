@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "595593198195",
-    "firebase_url": "https://killthebug-40fa9-default-rtdb.firebaseio.com",
-    "project_id": "killthebug-40fa9",
-    "storage_bucket": "killthebug-40fa9.appspot.com"
+    "project_number": "850774125305",
+    "firebase_url": "https://killthebug-f7681-default-rtdb.firebaseio.com",
+    "project_id": "killthebug-f7681",
+    "storage_bucket": "killthebug-f7681.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:595593198195:android:64f4712b0760b2b19cc806",
+        "mobilesdk_app_id": "1:850774125305:android:fd39da991bbfae02d29028",
         "android_client_info": {
           "package_name": "com.siming.killthebug"
         }
       },
       "oauth_client": [
         {
-          "client_id": "595593198195-rsikf344ni60t2ka5d5pqm1dbi3044oc.apps.googleusercontent.com",
+          "client_id": "850774125305-8kt9cfb92958gfnmvcenmnecpteqqqui.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCzbcFETfUD-6D-L3VPqxN2hv5q6_KA_l8"
+          "current_key": "AIzaSyACISMjtK_Id5Km7wR7bacuL3T2Nxpdi5g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "595593198195-rsikf344ni60t2ka5d5pqm1dbi3044oc.apps.googleusercontent.com",
+              "client_id": "850774125305-8kt9cfb92958gfnmvcenmnecpteqqqui.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

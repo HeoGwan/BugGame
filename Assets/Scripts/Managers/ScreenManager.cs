@@ -83,6 +83,7 @@ public class ScreenManager : MonoBehaviour
         GameManager.instance.backgroundManager.ChangeBackground();
 
         if (GameManager.instance.GameState == GAME_STATE.PAUSE) { return; }
+        if (ScreenStack.Peek() == SCREEN.PAY) { GameManager.instance.payManager.ShowMoney(); }
         BGM(ScreenStack.Peek());
     }
 
@@ -93,7 +94,3 @@ public class ScreenManager : MonoBehaviour
         GameManager.instance.backgroundManager.ChangeBackground();
     }
 }
-
-// UI에 enum은 없애고 ScreenManager에 있는 SCREEN enum으로 해결
-// Screen은 현재 스크린 정보를 가지고 있고 해당 정보로
-// UIManager에게 화면에 띄울 UI를 요청함

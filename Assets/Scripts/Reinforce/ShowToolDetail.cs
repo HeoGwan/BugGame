@@ -62,9 +62,6 @@ public class ShowToolDetail : MonoBehaviour
 
     public void SelectTool(GameObject selectTool)
     {
-        /*
-         * 상점에서 도구 구매 후 강화 시 바로 제일 높은 단계로 강화되는 버그 발생
-        */
         sprite = selectTool.GetComponent<SpriteRenderer>().sprite;
         selectToolScript = selectTool.GetComponent<Tool>();
 
@@ -118,7 +115,9 @@ public class ShowToolDetail : MonoBehaviour
             return -1;
         }
 
-        return basePrice.RatePrice + (int)(basePrice.RatePrice * 0.5f * (int)toolAttr);
+        return basePrice.RatePrice;
+
+        //return basePrice.RatePrice + (int)(basePrice.RatePrice * 0.5f * (int)toolAttr);
         //switch (toolAttr)
         //{
         //    case TOOL_RATE.SUPER_SLOW:
@@ -141,7 +140,8 @@ public class ShowToolDetail : MonoBehaviour
             return -1;
         }
 
-        return basePrice.SpeedPrice + (int)(basePrice.SpeedPrice * 0.5f * (int)toolAttr);
+        return basePrice.SpeedPrice;
+        //return basePrice.SpeedPrice + (int)(basePrice.SpeedPrice * 0.5f * (int)toolAttr);
 
         //switch (toolAttr)
         //{
@@ -165,7 +165,8 @@ public class ShowToolDetail : MonoBehaviour
             return -1;
         }
 
-        return basePrice.RadiusPrice + (int)(basePrice.RadiusPrice * 0.5f * (int)toolAttr);
+        return basePrice.RadiusPrice;
+        //return basePrice.RadiusPrice + (int)(basePrice.RadiusPrice * 0.5f * (int)toolAttr);
         //switch (toolAttr)
         //{
         //    case TOOL_RADIUS.SMALL:
@@ -184,7 +185,8 @@ public class ShowToolDetail : MonoBehaviour
             return -1;
         }
 
-        return basePrice.DamagePrice + (int)(basePrice.DamagePrice * 0.5f * (int)toolAttr);
+        return basePrice.DamagePrice;
+        //return basePrice.DamagePrice + (int)(basePrice.DamagePrice * 0.5f * (int)toolAttr);
         //switch (toolAttr)
         //{
         //    case TOOL_DAMAGE.VERY_WEAK:

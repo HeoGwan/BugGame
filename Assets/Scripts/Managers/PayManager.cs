@@ -11,6 +11,11 @@ public class PayManager : MonoBehaviour
         pay.PayMoney(GameManager.instance.scoreManager.Score * 100);
     }
 
+    public void ShowMoney()
+    {
+        pay.ShowPayInfo();
+    }
+
     public void GoReinForce()
     {
         GameManager.instance.reinforceManager.Open();

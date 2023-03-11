@@ -12,14 +12,15 @@ public class Shop : MonoBehaviour
     public TextMeshProUGUI showPlayerMoney;
     public GameObject ToolObjs; // 실제 전시되는(구매 하는) 아이템을 모아놓은 오브젝트
     public GameObject BuyItemObj;
-    public GameObject LockObj;
-    public GameObject[] Items; // 베이스가 되는 도구들
+    public ShopItem[] Items; // 베이스가 되는 도구들
 
     private List<GameObject> shopItems;
 
-    private void Awake()
+    private void Start()
     {
+#if UNITY_EDITOR
         print("Shop 호출");
+#endif
         shopItems = new List<GameObject>();
         GetItems();
     }
@@ -29,18 +30,23 @@ public class Shop : MonoBehaviour
         shopItems.Clear();
         foreach (Transform child in ToolObjs.transform)
         {
-            Destroy(child.gameObject);
+            //Destroy(child.gameObject);
+            GameManager.instance.prefabManager.PutBackObj(child.gameObject);
         }
         GetItems();
     }
 
     public void GetItems()
     {
-        foreach (GameObject item in Items)
+        foreach (ShopItem item in Items)
         {
-            GameObject shopItem = Instantiate(item, ToolObjs.transform);
+            //GameObject shopItem = Instantiate(item, ToolObjs.transform);
 
-            Instantiate(LockObj, shopItem.transform);
+            //Instantiate(LockObj, shopItem.transform);
+
+            GameObject shopItem = GameManager.instance.prefabManager.GetShopItem(item);
+            shopItem.transform.SetParent(ToolObjs.transform);
+            shopItem.transform.localScale = Vector3.one;
 
             shopItem.GetComponent<Button>().onClick.AddListener(() =>
             {

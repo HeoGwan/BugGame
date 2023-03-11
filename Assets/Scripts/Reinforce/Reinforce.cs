@@ -15,10 +15,13 @@ public class Reinforce : MonoBehaviour
     public GameObject hasToolPrefab;
 
     private List<GameObject> hasPlayerTools;
+    private ShowToolDetail showToolDetail;
 
     private void Awake()
     {
         hasPlayerTools = new List<GameObject>();
+
+        showToolDetail = toolDetail.GetComponent<ShowToolDetail>();
     }
 
     public void AddTool(GameObject tool)
@@ -27,7 +30,12 @@ public class Reinforce : MonoBehaviour
          * ex) 맨손만 가진 채 파리채 구매 후 파리채를 강화하면
          * 맨손도 같이 강화되는 버그 발생
         */
-        GameObject showTool = Instantiate(hasToolPrefab, canSelectToolObj.transform);
+        //GameObject showTool = Instantiate(hasToolPrefab, canSelectToolObj.transform);
+
+        GameObject showTool = GameManager.instance.prefabManager.GetHasTool();
+        showTool.transform.SetParent(canSelectToolObj.transform);
+        showTool.transform.localScale = Vector3.one;
+
         showTool.transform.GetChild(0).GetComponent<Image>().sprite =
             tool.GetComponent<SpriteRenderer>().sprite;
 
@@ -37,6 +45,7 @@ public class Reinforce : MonoBehaviour
             GameManager.instance.soundManager.UIEffectPlay(1);
         });
 
+
         hasPlayerTools.Add(tool);
     }
 
@@ -44,7 +53,7 @@ public class Reinforce : MonoBehaviour
     {
         int index = hasPlayerTools.IndexOf(tool);
         hasPlayerTools.Remove(tool);
-        Destroy(canSelectToolObj.transform.GetChild(index).gameObject);
+        GameManager.instance.prefabManager.PutBackObj(canSelectToolObj.transform.GetChild(index).gameObject);
     }
 
     public void ShowMoney()
@@ -54,8 +63,8 @@ public class Reinforce : MonoBehaviour
 
     public Price ShowToolInfo()
     {
-        toolDetail.GetComponent<ShowToolDetail>().ShowAttributes();
-        return toolDetail.GetComponent<ShowToolDetail>().ShowPrices();
+        showToolDetail.ShowAttributes();
+        return showToolDetail.ShowPrices();
     }
 
     public void ShowWindow()
@@ -65,7 +74,7 @@ public class Reinforce : MonoBehaviour
         if (hasPlayerTools.Count > 0)
         {
             GameObject selectTool = hasPlayerTools[0];
-            toolDetail.GetComponent<ShowToolDetail>().SelectTool(selectTool);
+            showToolDetail.SelectTool(selectTool);
         }
 
         ShowToolInfo();
@@ -76,7 +85,7 @@ public class Reinforce : MonoBehaviour
         hasPlayerTools.Clear();
         foreach (Transform child in canSelectToolObj.transform)
         {
-            Destroy(child.gameObject);
+            GameManager.instance.prefabManager.PutBackObj(child.gameObject);
         }
     }
 }

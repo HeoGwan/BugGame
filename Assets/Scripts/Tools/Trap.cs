@@ -54,19 +54,21 @@ public class Trap : Tool
 
         // 때린 장소 표시 오브젝트 생성
         GameObject showHitObj = GameManager.instance.prefabManager.GetHit(HIT_OBJ_TYPE.SHOW_HIT);
+        HitObjScript showHit = showHitObj.GetComponent<HitObjScript>();
         // 벌레 잡았는지 확인하는 오브젝트 생성
         GameObject checkHitObj = GameManager.instance.prefabManager.GetHit(HIT_OBJ_TYPE.CHECK_HIT);
+        HitCheckScript checkHit = checkHitObj.GetComponent<HitCheckScript>();
 
         // 오브젝트 설정 변경
-        showHitObj.GetComponent<HitObjScript>().ChangeInfo(radius, stopDuration);
-        checkHitObj.GetComponent<HitCheckScript>().ChangeInfo(radius, damage, tool, stopDuration, 0, false);
-        
-        showHitObj.GetComponent<HitObjScript>().ChangeImage(hitObjImage);        
-        checkHitObj.GetComponent<HitCheckScript>().ChangeImage(hitObjImage);
+        showHit.ChangeInfo(radius, stopDuration);
+        checkHit.ChangeInfo(radius, damage, tool, stopDuration, 0, false);
+
+        showHit.ChangeImage(hitObjImage);
+        checkHit.ChangeImage(hitObjImage);
 
         // 도구 위치로 오브젝트 이동
-        showHitObj.GetComponent<HitObjScript>().Show(transform.position);
-        checkHitObj.GetComponent<HitCheckScript>().Show(transform.position);
+        showHit.Show(transform.position);
+        checkHit.Show(transform.position);
 
         // 때리기 쿨타임
         canHit = false;

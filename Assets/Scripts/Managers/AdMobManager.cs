@@ -7,7 +7,13 @@ using UnityEngine;
 public class AdMobManager : MonoBehaviour
 {
 #if UNITY_ANDROID
-    string adUnitId = "ca-app-pub-3940256099942544/6300978111";
+    // production ID
+    // app ID:                      ca-app-pub-4348469999914971~6017246843
+    //string adUnitId =             "ca-app-pub-4348469999914971/7491934449";
+
+    // test ID
+    // app ID:                      ca-app-pub-3940256099942544~3347511713
+    string adUnitId =               "ca-app-pub-3940256099942544/6300978111";
 #else
     string adUnitId = "unused";
 #endif
@@ -23,7 +29,9 @@ public class AdMobManager : MonoBehaviour
 
     void CreateBannerView()
     {
+#if UNITY_EDITOR
         print("Creating banner view");
+#endif
 
         if (bannerView != null)
         {
@@ -44,7 +52,9 @@ public class AdMobManager : MonoBehaviour
             .AddKeyword("unity-admob-sample")
             .Build();
 
+#if UNITY_EDITOR
         print("Loading banner Ad.");
+#endif
         bannerView.LoadAd(adRequest);
     }
 
@@ -52,7 +62,9 @@ public class AdMobManager : MonoBehaviour
     {
         if (bannerView != null)
         {
+#if UNITY_EDITOR
             print("Destroying banner Ad.");
+#endif
             bannerView.Destroy();
             bannerView = null;
         }

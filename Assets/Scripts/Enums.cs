@@ -6,12 +6,13 @@ namespace CESCO
 {
     public enum OBJ_TYPE
     {
-        PLAYER_HAS,
         HP_GAUGE_IMAGE,
         HP_GAUGE_BG_IMAGE,
         TOOL_GAUGE_IMAGE,
         TOOL_GAUGE_BG_IMAGE,
         SCORE,
+        SHOW_PLAYER_HAS,
+        PLAYER_HAS,
     }
 
     public enum HIT_OBJ_TYPE

@@ -14,6 +14,8 @@ public class ShowHitPos : MonoBehaviour
     private Vector3 basePosition;
     private bool isPlayAnimation = false;
     private bool isFollowingAnimation = false;
+    private GameObject curToolObj;
+    private Tool curTool;
 
     private void Awake()
     {
@@ -26,12 +28,16 @@ public class ShowHitPos : MonoBehaviour
         transform.localScale = tool.transform.localScale;
     }
 
+    public void ToolChange(Tool tool)
+    {
+        curToolObj = tool.gameObject;
+        curTool = tool;
+    }
+
     void Update()
     {
         if (isPlayAnimation) { return; }
 
-        GameObject curToolObj = GameManager.instance.CurrentPlayer.CurrentSelectTool;
-        Tool curTool = curToolObj.GetComponent<Tool>();
         if (isFollowingAnimation)
         {
             transform.position = curToolObj.transform.position;
@@ -87,7 +93,6 @@ public class ShowHitPos : MonoBehaviour
 
     void PlayAnimation(string animationName, float animationTime)
     {
-        //animator.SetTrigger(animationName);
         animator.SetBool(animationName, true);
         StartCoroutine(StopAnimation(animationName, animationTime));
     }

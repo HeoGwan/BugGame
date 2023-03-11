@@ -62,7 +62,6 @@ public class Tool : MonoBehaviour
     }
     // 데미지 최대 단계
     [SerializeField] private int maxDamageLevel;
-    private int damageLevel = 1;
 
     [SerializeField] private int damagePrice;
     public int DamagePrice { get { return damagePrice; } }
@@ -208,28 +207,45 @@ public class Tool : MonoBehaviour
     
     public void SetDamage()
     {
-        damage *= damageLevel;
-        damageLevel = damageLevel < maxDamageLevel ? ++damageLevel : damageLevel;
+        damage *= (int)toolDamage + 1;
+        //damageLevel = damageLevel < maxDamageLevel ? ++damageLevel : damageLevel;
     }
     #endregion
 
     protected void SetRateValue(float[] values)
     {
-        if (values.Length != rates.Length) { print("속성 값은 " + rates.Length + "개가 되어야 합니다."); return; }
+        if (values.Length != rates.Length) {
+#if UNITY_EDITOR
+            print("속성 값은 " + rates.Length + "개가 되어야 합니다.");
+#endif
+            return;
+        }
 
         rates = values;
     }
 
     protected void SetRadiusValue(float[] values)
     {
-        if (values.Length != radiuses.Length) { print("속성 값은 " + radiuses.Length + "개가 되어야 합니다."); return; }
+        if (values.Length != radiuses.Length)
+        {
+#if UNITY_EDITOR
+            print("속성 값은 " + radiuses.Length + "개가 되어야 합니다.");
+#endif
+            return;
+        }
 
         radiuses = values;
     }
 
     protected void SetSpeedValue(float[] values)
     {
-        if (values.Length != speeds.Length) { print("속성 값은 " + speeds.Length + "개가 되어야 합니다."); return; }
+        if (values.Length != speeds.Length)
+        {
+#if UNITY_EDITOR
+            print("속성 값은 " + speeds.Length + "개가 되어야 합니다.");
+#endif
+            return;
+        }
 
         speeds = values;
     }
@@ -245,6 +261,7 @@ public class Tool : MonoBehaviour
         SetRate();
         SetRadius();
         SetSpeed();
+        SetDamage();
         Init();
     }
 
@@ -259,21 +276,28 @@ public class Tool : MonoBehaviour
         }
 
         // PC 테스트 전용
+#if UNITY_EDITOR
         Vector2 movePos = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Move(movePos.normalized);
+#endif
     }
 
+#if UNITY_EDITOR
     private void Update()
     {
         // 도구마다 기능이 달라진다.
         if (Input.GetKeyDown(KeyCode.Space)) Hit();
     }
+#endif
 
     public virtual void HitButtonDown()
     {
         // 모든 도구가 공통으로 가짐
         Hit();
+
+#if UNITY_EDITOR
         print("Hit Button Down");
+#endif
     }
     
     public virtual void HitButtonUp()
@@ -333,18 +357,20 @@ public class Tool : MonoBehaviour
 
         // 때린 장소 표시 오브젝트 생성
         GameObject showHitObj = GameManager.instance.prefabManager.GetHit(HIT_OBJ_TYPE.SHOW_HIT);
+        HitObjScript showHit = showHitObj.GetComponent<HitObjScript>();
         // 벌레 잡았는지 확인하는 오브젝트 생성
         GameObject checkHitObj = GameManager.instance.prefabManager.GetHit(HIT_OBJ_TYPE.CHECK_HIT);
+        HitCheckScript checkHit = checkHitObj.GetComponent<HitCheckScript>();
 
         // 오브젝트 크기 변경
-        showHitObj.GetComponent<HitObjScript>().ChangeInfo(radius, hitDelay);
-        checkHitObj.GetComponent<HitCheckScript>().ChangeInfo(radius, damage, tool);
+        showHit.ChangeInfo(radius, hitDelay);
+        checkHit.ChangeInfo(radius, damage, tool);
 
-        showHitObj.GetComponent<HitObjScript>().ChangeImage();
+        showHit.ChangeImage();
 
         // 도구 위치로 오브젝트 이동
-        showHitObj.GetComponent<HitObjScript>().Show(transform.position);
-        checkHitObj.GetComponent<HitCheckScript>().Show(transform.position);
+        showHit.Show(transform.position);
+        checkHit.Show(transform.position);
 
         // 때리기 쿨타임
         canHit = false;

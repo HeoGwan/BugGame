@@ -6,6 +6,11 @@ using CESCO;
 using UnityEngine.UI;
 using UnityEditor;
 
+/*
+ * 사용 제한있는 아이템 사용 후 다른 아이템 얻고 사용 시 버그 발생
+ * 이벤트 리스너를 지우지 않아 발생한 문제
+*/
+
 public class Player : MonoBehaviour
 {
     [SerializeField] private TOOL toolIndex = TOOL.HAND;
@@ -20,6 +25,8 @@ public class Player : MonoBehaviour
     [SerializeField] private List<GameObject> hasTools;
     [SerializeField] private List<TOOL> hasToolTypes;
     private GameObject selectTool = null;
+    private Tool curTool;
+
     private int money;
     private EventTrigger.Entry buttonDown;
     private EventTrigger.Entry buttonUp;
@@ -96,7 +103,9 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < showSelectTools.transform.childCount; ++i)
         {
-            Destroy(showSelectTools.transform.GetChild(i).gameObject);
+            GameObject toolButton = showSelectTools.transform.GetChild(i).gameObject;
+            toolButton.GetComponent<Button>().onClick.RemoveAllListeners();
+            GameManager.instance.prefabManager.PutBackObj(toolButton);
         }
     }
     
@@ -112,7 +121,6 @@ public class Player : MonoBehaviour
     {
         GameObject toolObj = toolPref == null ? GameManager.instance.toolManager.GiveTool(tool) : toolPref;
         // 어떤 도구인지 정보를 전달받은 후 해당 도구를 인스턴스화 하는 과정
-        //GameObject toolObjInstance = Instantiate(toolObj, toolListObj.transform);
         toolObj.transform.SetParent(toolListObj.transform);
 
         // 해당 도구를 플레이어가 가지고 있다는 것을 알려줌
@@ -126,7 +134,7 @@ public class Player : MonoBehaviour
         hasToolTypes.Add(tool);
 
         // 플레이어가 선택할 수 있도록 버튼을 추가한다.
-        GameObject toolButton = GameManager.instance.prefabManager.RequestInstantiate(OBJ_TYPE.PLAYER_HAS);
+        GameObject toolButton = GameManager.instance.prefabManager.GetSelectTool();
         toolButton.transform.SetParent(showSelectTools.transform);
         toolButton.transform.localScale = Vector3.one;
 
@@ -145,25 +153,26 @@ public class Player : MonoBehaviour
 
     void ChangeTool()
     {
-        hitButton.GetComponent<EventTrigger>().triggers.Clear();
+        EventTrigger hitButtonTrigger = hitButton.GetComponent<EventTrigger>();
+        hitButtonTrigger.triggers.Clear();
 
         buttonDown.callback.AddListener((data) =>
         {
             if (GameManager.instance.GameState == GAME_STATE.RUNNING)
             {
-                selectTool.GetComponent<Tool>().HitButtonDown();
+                curTool.HitButtonDown();
             }
         });
         buttonUp.callback.AddListener((data) =>
         {
             if (GameManager.instance.GameState == GAME_STATE.RUNNING)
             {
-                selectTool.GetComponent<Tool>().HitButtonUp();
+                curTool.HitButtonUp();
             }
         });
 
-        hitButton.GetComponent<EventTrigger>().triggers.Add(buttonDown);
-        hitButton.GetComponent<EventTrigger>().triggers.Add(buttonUp);
+        hitButtonTrigger.triggers.Add(buttonDown);
+        hitButtonTrigger.triggers.Add(buttonUp);
     }
     
     void SelectTool(Vector3 prevPos)
@@ -173,18 +182,24 @@ public class Player : MonoBehaviour
             selectTool.SetActive(false);
         }
 
+        ShowHitPos hitPos = showHitPos.GetComponent<ShowHitPos>();
+
         //int index = hasToolTypes.IndexOf(toolIndex);
         int index = hasToolTypes.Count - 1;
         selectTool = hasTools[index];
-        selectTool.GetComponent<Tool>().ChangePos(prevPos);
-        selectTool.GetComponent<Tool>().SetTool();
+
+        curTool = selectTool.GetComponent<Tool>();
+        curTool.ChangePos(prevPos);
+        curTool.SetTool();
         selectTool.SetActive(true);
 
         // Hit 버튼의 도구 변경
         ChangeTool();
 
         // 선택한 도구의 Hit 좌표를 보여줌
-        showHitPos.GetComponent<ShowHitPos>().SetCurTool(selectTool);
+        hitPos.SetCurTool(selectTool);
+        // 도구가 변경되었다는 것을 알려줌
+        hitPos.ToolChange(curTool);
     }
     
     void SelectTool()
@@ -196,23 +211,28 @@ public class Player : MonoBehaviour
             selectTool.SetActive(false);
         }
 
-        //int index = hasToolTypes.IndexOf(toolIndex);
+        ShowHitPos hitPos = showHitPos.GetComponent<ShowHitPos>();
+
         int index = hasToolTypes.Count - 1;
         selectTool = hasTools[index];
-        selectTool.GetComponent<Tool>().ChangePos(prevPos);
-        selectTool.GetComponent<Tool>().SetTool();
+
+        curTool = selectTool.GetComponent<Tool>();
+        curTool.ChangePos(prevPos);
+        curTool.SetTool();
         selectTool.SetActive(true);
 
         // Hit 버튼의 도구 변경
         ChangeTool();
 
         // 선택한 도구의 Hit 좌표를 보여줌
-        showHitPos.GetComponent<ShowHitPos>().SetCurTool(selectTool);
+        hitPos.SetCurTool(selectTool);
+        // 도구가 변경되었다는 것을 알려줌
+        hitPos.ToolChange(curTool);
     }
     
     void SelectTool(TOOL tool)
     {
-        if (selectTool.GetComponent<Tool>().ToolType == tool) return;
+        if (curTool.ToolType == tool) return;
 
         Vector3 prevPos = Vector3.zero;
         if (selectTool != null)
@@ -221,17 +241,23 @@ public class Player : MonoBehaviour
             selectTool.SetActive(false);
         }
 
+        ShowHitPos hitPos = showHitPos.GetComponent<ShowHitPos>();
+
         int index = hasToolTypes.IndexOf(tool);
         selectTool = hasTools[index];
-        selectTool.GetComponent<Tool>().ChangePos(prevPos);
-        selectTool.GetComponent<Tool>().SetTool();
+
+        curTool = selectTool.GetComponent<Tool>();
+        curTool.ChangePos(prevPos);
+        curTool.SetTool();
         selectTool.SetActive(true);
 
         // Hit 버튼의 도구 변경
         ChangeTool();
 
         // 선택한 도구의 Hit 좌표를 보여줌
-        showHitPos.GetComponent<ShowHitPos>().SetCurTool(selectTool);
+        hitPos.SetCurTool(selectTool);
+        // 도구가 변경되었다는 것을 알려줌
+        hitPos.ToolChange(curTool);
     }
 
     public void ChangeMoney(int money)
@@ -251,7 +277,7 @@ public class Player : MonoBehaviour
 
     public void Hit()
     {
-        selectTool.GetComponent<Tool>().Hit();
+        curTool.Hit();
     }
     
     public void CantUse(GameObject toolObj)
@@ -260,16 +286,21 @@ public class Player : MonoBehaviour
         TOOL tool = toolObj.GetComponent<Tool>().ToolType;
         Vector3 pos = toolObj.transform.position;
         int index = hasToolTypes.IndexOf(tool);
+#if UNITY_EDITOR
         print("index: " + index);
+#endif
 
         // 가지고 있는 정보에서 삭제
         hasToolTypes.Remove(tool);
         hasTools.RemoveAt(index);
 
         // 현재 가지고 있는 도구의 오브젝트 삭제
-        //Destroy(toolListObj.transform.GetChild(index).gameObject);
         GameManager.instance.toolManager.ReturnTool(toolListObj.transform.GetChild(index).gameObject);
-        Destroy(showSelectTools.transform.GetChild(index).gameObject);
+
+        // 도구 선택 버튼을 지우면서 추가된 이벤트 리스너를 지워준다.
+        GameObject toolButton = showSelectTools.transform.GetChild(index).gameObject;
+        toolButton.GetComponent<Button>().onClick.RemoveAllListeners();
+        GameManager.instance.prefabManager.PutBackObj(toolButton);
 
         // 상점과 강화 매니저에게 도구를 사용할 수 없다는 것을 알림
         GameManager.instance.shopManager.LockTool(tool);

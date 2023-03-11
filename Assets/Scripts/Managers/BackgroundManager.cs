@@ -8,6 +8,7 @@ public class BackgroundManager : MonoBehaviour
 {
     [Header("Background Object")]
     [SerializeField] private GameObject backgroundObj;
+    private Image backgroundImage;
 
     [Header("Background Images")]
     [SerializeField] private Sprite startBackgroundImage;
@@ -22,6 +23,7 @@ public class BackgroundManager : MonoBehaviour
     private void Awake()
     {
         imageList = new List<Sprite>();
+        backgroundImage = backgroundObj.GetComponent<Image>();
 
         if (mosquitoBackgroundImage) imageList.Add(mosquitoBackgroundImage);
         if (flyBackgroundImage) imageList.Add(flyBackgroundImage);
@@ -36,7 +38,7 @@ public class BackgroundManager : MonoBehaviour
             GameManager.instance.GameState == GAME_STATE.RUNNING)
         {
             int type = (int)GameManager.instance.spawnManager.BugType;
-            backgroundObj.GetComponent<Image>().sprite = imageList[type];
+            backgroundImage.sprite = imageList[type];
 
             if (GameManager.instance.spawnManager.BugType == BUG_TYPE.FLY)
             {

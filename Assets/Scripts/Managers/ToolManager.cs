@@ -48,6 +48,13 @@ public class ToolManager : MonoBehaviour
         return tools[index].GetComponent<Tool>();
     }
 
+    public Sprite GetToolImage(TOOL tool)
+    {
+        int index = toolTypes.IndexOf(tool);
+        return tools[index].GetComponent<SpriteRenderer>().sprite;
+    }
+
+
     public GameObject GivePlayer(TOOL tool)
     {
         int index = toolTypes.IndexOf(tool);

@@ -14,7 +14,6 @@ public class Target : MonoBehaviour
 
     public float HP { get { return healthPoint; } }
 
-
     private void Awake() { Init(); }
 
     public void Init() { healthPoint = hp; }

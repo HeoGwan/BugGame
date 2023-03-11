@@ -105,12 +105,12 @@ public class SoundManager : MonoBehaviour
     {
         if (sound == SOUND.BUG_EFFECT)
         {
-            List<GameObject>[] bugs = GameManager.instance.prefabManager.BugPool;
+            List<Bug>[] bugs = GameManager.instance.prefabManager.BugPool;
             for (int i = 0; i < bugs.Length; ++i)
             {
-                foreach (GameObject bug in bugs[i])
+                foreach (Bug bug in bugs[i])
                 {
-                    bug.GetComponent<Bug>().SetAudioVolume(volume);
+                    bug.SetAudioVolume(volume);
                 }
             }
             return;

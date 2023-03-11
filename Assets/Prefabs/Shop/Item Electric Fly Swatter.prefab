@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8b149a392e62746b55829d9544dbea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrice: 30000
+  itemPrice: 15000
   toolType: 4
 --- !u!114 &2740732806178586919
 MonoBehaviour:

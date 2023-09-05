@@ -71,8 +71,8 @@ public class UIManager : MonoBehaviour
         if (GameManager.instance.GameState != GAME_STATE.START) GamePauseButton.SetActive(true);
         else GamePauseButton.SetActive(false);
 
-        if (screen == SCREEN.PAY) { GameManager.instance.adMobManager.LoadAd(); }
-        else { GameManager.instance.adMobManager.DestroyAd(); }
+        if (screen == SCREEN.PAY) { GameManager.instance.adMobManager.ShowAd(); }
+        else { GameManager.instance.adMobManager.HideAd(); }
     }
 
     public void InActiveUI()
@@ -80,10 +80,10 @@ public class UIManager : MonoBehaviour
         // 가장 최근에 보여진 UI 비활성화 및 스택 삭제
         GameObject recentUI = GameUIStack.Pop();
         recentUI.SetActive(false);
-        if (recentUI == GameUI[(int)SCREEN.PAY]) { GameManager.instance.adMobManager.DestroyAd(); }
+        if (recentUI == GameUI[(int)SCREEN.PAY]) { GameManager.instance.adMobManager.HideAd(); }
 
         GameUIStack.Peek().SetActive(true);
-        if (GameUIStack.Peek() == GameUI[(int)SCREEN.PAY]) { GameManager.instance.adMobManager.LoadAd(); }
+        if (GameUIStack.Peek() == GameUI[(int)SCREEN.PAY]) { GameManager.instance.adMobManager.ShowAd(); }
 
         if (GameManager.instance.GameState != GAME_STATE.START) GamePauseButton.SetActive(true);
         else GamePauseButton.SetActive(false);
@@ -94,7 +94,7 @@ public class UIManager : MonoBehaviour
         // 메인 화면으로 돌아갈 시 게임 종료 후
         // 최근에 출력된 UI 비활성화 후
         // UI가 담겨진 스택 초기화
-        if (GameUIStack.Contains(GameUI[(int)SCREEN.PAY])) { GameManager.instance.adMobManager.DestroyAd(); }
+        if (GameUIStack.Contains(GameUI[(int)SCREEN.PAY])) { GameManager.instance.adMobManager.HideAd(); }
         GameUIStack.Peek().SetActive(false);
 
         // 화면, UI 초기화

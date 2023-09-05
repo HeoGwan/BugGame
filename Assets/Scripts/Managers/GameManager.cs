@@ -1,3 +1,4 @@
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     // ΩÃ±€≈Ê
     public static GameManager instance;
+
+    private string path;
 
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject target;
@@ -102,6 +105,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        path = Path.Combine(Application.persistentDataPath, "setting.json");
+
         //mouseManager.Visible();
         player.SetActive(false);
         target.SetActive(false);
@@ -111,6 +116,13 @@ public class GameManager : MonoBehaviour
 
         inputNicknameObj.SetActive(false);
         CameraSize = Camera.main.orthographicSize;
+    }
+
+    private void Start()
+    {
+        JsonLoad();
+        adMobManager.LoadAd();
+        adMobManager.HideAd();
     }
 
     private void Update()
@@ -129,6 +141,36 @@ public class GameManager : MonoBehaviour
                 GamePause();
             }
         }
+    }
+
+    void JsonLoad()
+    {
+        AudioData audioData = new AudioData();
+
+        if (!File.Exists(path))
+        {
+            JsonSave();
+        }
+        else
+        {
+            string loadJson = File.ReadAllText(path);
+            audioData = JsonUtility.FromJson<AudioData>(loadJson);
+
+            soundManager.AudioSetting(audioData);
+        }
+    }
+
+    void JsonSave()
+    {
+        AudioData audioData = new AudioData();
+
+        audioData.BGMVolume = soundManager.BGM.volume;
+        audioData.EffectVolume = soundManager.Effect.volume;
+        audioData.BugVolume = prefabManager.GetBugSound();
+
+        string json = JsonUtility.ToJson(audioData, true);
+
+        File.WriteAllText(path, json);
     }
 
     public void GameInit()
@@ -347,6 +389,8 @@ public class GameManager : MonoBehaviour
 
     public void GameExit()
     {
+        adMobManager.DestroyAd();
+        JsonSave();
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
         #else

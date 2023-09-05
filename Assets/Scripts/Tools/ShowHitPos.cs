@@ -17,9 +17,12 @@ public class ShowHitPos : MonoBehaviour
     private GameObject curToolObj;
     private Tool curTool;
 
+    private WaitForSeconds waitAnimationDelay;
+
     private void Awake()
     {
         baseRotation = transform.localEulerAngles;
+        waitAnimationDelay = new WaitForSeconds(animationDelay);
     }
 
     public void SetCurTool(GameObject tool)
@@ -100,7 +103,7 @@ public class ShowHitPos : MonoBehaviour
     IEnumerator HitAnimation()
     {
         StartHitAnimation();
-        yield return new WaitForSeconds(animationDelay);
+        yield return waitAnimationDelay;
         StopHitAnimation();
     }
 

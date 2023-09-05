@@ -6,16 +6,16 @@ using UnityEngine;
 
 public class AdMobManager : MonoBehaviour
 {
+    string adUnitId = "ca-app-pub-4348469999914971/7491934449";
 #if UNITY_ANDROID
     // production ID
     // app ID:                      ca-app-pub-4348469999914971~6017246843
-    //string adUnitId =             "ca-app-pub-4348469999914971/7491934449";
 
     // test ID
     // app ID:                      ca-app-pub-3940256099942544~3347511713
-    string adUnitId =               "ca-app-pub-3940256099942544/6300978111";
+    //string adUnitId =               "ca-app-pub-3940256099942544/6300978111";
 #else
-    string adUnitId = "unused";
+    //string adUnitId = "unused";
 #endif
 
     BannerView bannerView;
@@ -68,5 +68,15 @@ public class AdMobManager : MonoBehaviour
             bannerView.Destroy();
             bannerView = null;
         }
+    }
+
+    public void ShowAd()
+    {
+        bannerView.Show();
+    }
+
+    public void HideAd()
+    {
+        bannerView.Hide();
     }
 }

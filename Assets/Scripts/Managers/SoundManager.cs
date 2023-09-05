@@ -8,6 +8,13 @@ using CESCO;
 using Unity.VisualScripting;
 using UnityEngine.Networking.Types;
 
+public class AudioData
+{
+    public float BGMVolume;
+    public float EffectVolume;
+    public float BugVolume;
+}
+
 public class SoundManager : MonoBehaviour
 {
     private AudioSource BGMSound;
@@ -125,6 +132,13 @@ public class SoundManager : MonoBehaviour
             Sounds[(int)SOUND.EFFECT].volume = volume;
             Sounds[(int)SOUND.UI_EFFECT].volume = volume;
         }
+    }
+
+    public void AudioSetting(AudioData data)
+    {
+        ChangeVolume(SOUND.BGM, data.BGMVolume);
+        ChangeVolume(SOUND.EFFECT, data.EffectVolume);
+        ChangeVolume(SOUND.BUG_EFFECT, data.BugVolume);
     }
 
     public void EffectPlay(TOOL tool)

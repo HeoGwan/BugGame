@@ -9,8 +9,10 @@ public class SettingManager : MonoBehaviour
 {
     public Slider BGM;
     public Image BGMHandle;
+
     public Slider Effect;
     public Image EffectHandle;
+
     public Slider BugEffect;
     public Image BugEffectHandle;
 

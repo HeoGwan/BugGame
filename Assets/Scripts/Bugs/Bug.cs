@@ -45,6 +45,11 @@ public class Bug : MonoBehaviour
     public float HP { get { return healthPoint; } }
     private int hpIndex = 0;
 
+    private WaitForSeconds waitCollision;
+    private WaitForSeconds waitDeath;
+    private WaitForSeconds waitOuch;
+    private WaitForSeconds waitStop;
+
     public BUG_TYPE BugType
     {
         get { return bugType; }
@@ -102,6 +107,10 @@ public class Bug : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         AudioSetting(false);
         prevSpeed = speed = Random.Range(minSpeed, maxSpeed);
+        waitCollision = new WaitForSeconds(0.5f);
+        waitDeath = new WaitForSeconds(deathDelay);
+        waitOuch = new WaitForSeconds(speedDelay);
+        waitStop = new WaitForSeconds(speedDelay);
     }
 
     private void Update()
@@ -266,13 +275,13 @@ public class Bug : MonoBehaviour
 
     IEnumerator Collision()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return waitCollision;
         isCollision = false;
     }
 
     IEnumerator Death()
     {
-        yield return new WaitForSeconds(deathDelay);
+        yield return waitDeath;
         gameObject.SetActive(false);
     }
 
@@ -280,7 +289,7 @@ public class Bug : MonoBehaviour
     {
         speed /= 2;
 
-        yield return new WaitForSeconds(speedDelay);
+        yield return waitOuch;
 
         speed = prevSpeed;
     }
@@ -289,7 +298,7 @@ public class Bug : MonoBehaviour
     {
         speed = 0;
 
-        yield return new WaitForSeconds(speedDelay);
+        yield return waitStop;
 
         speed = prevSpeed;
     }

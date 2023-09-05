@@ -100,6 +100,9 @@ public class Tool : MonoBehaviour
     [SerializeField] protected Sprite toolImage;
     public Sprite ToolImage { get { return toolImage; } }
 
+    private WaitForSeconds waitHitDelay;
+
+
     #region ¼Ó¼º getter, setter
     public string GetRateText()
     {
@@ -258,6 +261,7 @@ public class Tool : MonoBehaviour
 
     protected void Awake()
     {
+        waitHitDelay = new WaitForSeconds(hitDelay);
         SetRate();
         SetRadius();
         SetSpeed();
@@ -385,7 +389,7 @@ public class Tool : MonoBehaviour
     
     protected IEnumerator HitDelay()
     {
-        yield return new WaitForSeconds(hitDelay);
+        yield return waitHitDelay;
         canHit = !canHit;
     }
 

@@ -32,9 +32,13 @@ public class Insecticide : Tool
 
     private int count = 1;
 
+    private WaitForSeconds waitCantDelay;
+
     private new void Awake()
     {
         base.Awake();
+
+        waitCantDelay = new WaitForSeconds(0.2f);
 
         // 남은 사용량 알려주는 텍스트 초기화
         showUseCanvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
@@ -106,7 +110,7 @@ public class Insecticide : Tool
     }
     IEnumerator CantUse()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return waitCantDelay;
         GameManager.instance.CurrentPlayer.CantUse(gameObject);
     }
 }

@@ -10,9 +10,12 @@ public class HitObjScript : MonoBehaviour
 
     private SpriteRenderer hitImage;
 
+    private WaitForSecondsRealtime waitAnimationDelay;
+
     private void Awake()
     {
         hitImage = GetComponent<SpriteRenderer>();
+        waitAnimationDelay = new WaitForSecondsRealtime(animationDelay);
     }
 
     public void Show(Vector3 movePos)
@@ -48,7 +51,7 @@ public class HitObjScript : MonoBehaviour
 
     IEnumerator HitAnimation()
     {
-        yield return new WaitForSecondsRealtime(animationDelay);
+        yield return waitAnimationDelay;
         gameObject.SetActive(false);
     }
 }

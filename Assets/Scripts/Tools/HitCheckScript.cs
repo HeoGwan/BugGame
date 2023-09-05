@@ -17,9 +17,12 @@ public class HitCheckScript : MonoBehaviour
 
     private SpriteRenderer hitCheckImage;
 
+    private WaitForSeconds waitHitDelay;
+
     private void Awake()
     {
         hitCheckImage = GetComponent<SpriteRenderer>();
+        waitHitDelay = new WaitForSeconds(hitDelay);
     }
 
     public void Show(Vector3 movePos)
@@ -73,7 +76,7 @@ public class HitCheckScript : MonoBehaviour
 
     IEnumerator Hit()
     {
-        yield return new WaitForSeconds(hitDelay);
+        yield return waitHitDelay;
         gameObject.SetActive(false);
     }
 }

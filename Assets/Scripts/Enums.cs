@@ -40,6 +40,7 @@ namespace CESCO
         SHOP,
         GAMEOVER,
         GAMERULE,
+        CLEAR,
     }
 
     public enum TOUCH_SCREEN

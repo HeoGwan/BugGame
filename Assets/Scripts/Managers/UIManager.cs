@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public GameObject shop;
     public GameObject gameOver;
     public GameObject gameRule;
+    public GameObject clear;
 
     [Header("▼ Global Button")]
     public GameObject playerButton;
@@ -38,6 +39,7 @@ public class UIManager : MonoBehaviour
         GameUI.Insert((int)SCREEN.SHOP, shop);
         GameUI.Insert((int)SCREEN.GAMEOVER, gameOver);
         GameUI.Insert((int)SCREEN.GAMERULE, gameRule);
+        GameUI.Insert((int)SCREEN.CLEAR, clear);
 
         // 모든 UI를 비활성화 한 뒤
         foreach(GameObject gameUI in GameUI)
